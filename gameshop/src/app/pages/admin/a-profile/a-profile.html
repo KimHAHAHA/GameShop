@@ -1,15 +1,12 @@
-<p>a-profile works!</p>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KIMKY STORE - Admin Profile</title>
+  <title>KIMKY STORE - Profile</title>
 </head>
 <body>
   <app-header-admin></app-header-admin>
-
-  <!-- MAIN -->
   <main class="profile-container">
     <div class="profile-header">
       <h2>Profile</h2>
@@ -17,15 +14,27 @@
     </div>
 
     <div class="profile-card">
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
-        alt="Admin Profile"
-        class="profile-img"
-      />
+      <!-- ✅ รูปภาพโปรไฟล์สามารถกดเปลี่ยนได้ -->
+      <div class="profile-img-container">
+        <img 
+          [src]="profileImage" 
+          alt="User Image" 
+          class="profile-img"
+          (click)="onImageClick()" 
+        />
+        <input 
+          type="file" 
+          accept="image/*" 
+          #fileInput 
+          (change)="onFileSelected($event)" 
+          hidden
+        />
+        <p class="change-text">Click image to change</p>
+      </div>
 
       <div class="profile-info">
         <p><strong>Name:</strong> Admin01</p>
-        <p><strong>Email:</strong> Ad@g.com</p>
+        <p><strong>Email:</strong> Admin@g.com</p>
       </div>
     </div>
   </main>
