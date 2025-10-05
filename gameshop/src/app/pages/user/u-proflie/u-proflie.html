@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KIMKY STORE - Profile</title>
-</head>
-<body>
-  <app-header></app-header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KIMKY STORE - Profile</title>
+  </head>
+  <body>
+    <app-header></app-header>
 
-  <main class="profile-container">
-    <div class="profile-header">
-      <h2>Profile</h2>
-      <button class="logout-btn" [routerLink]="['/u_homeNO']">Log Out</button>
-    </div>
-
-    <div class="profile-card">
-      <!-- ✅ รูปภาพโปรไฟล์สามารถกดเปลี่ยนได้ -->
-      <div class="profile-img-container">
-        <img 
-          [src]="profileImage" 
-          alt="User Image" 
-          class="profile-img"
-          (click)="onImageClick()" 
-        />
-        <input 
-          type="file" 
-          accept="image/*" 
-          #fileInput 
-          (change)="onFileSelected($event)" 
-          hidden
-        />
-        <p class="change-text">Click image to change</p>
+    <main class="profile-container">
+      <div class="profile-header">
+        <h2>Profile</h2>
+        <button class="logout-btn" (click)="onLogout()">Log Out</button>
       </div>
 
-      <div class="profile-info">
-        <p><strong>Name:</strong> User01</p>
-        <p><strong>Email:</strong> User@g.com</p>
-      </div>
+      <div class="profile-card">
+        <!-- ✅ รูปภาพโปรไฟล์สามารถกดเปลี่ยนได้ -->
+        <div class="profile-img-container">
+          <img
+            [src]="profileImage"
+            alt="User Image"
+            class="profile-img"
+            (click)="onImageClick()"
+          />
+          <input
+            type="file"
+            accept="image/*"
+            #fileInput
+            (change)="onFileSelected($event)"
+            hidden
+          />
+          <p class="change-text">
+            {{ isUploading ? "Uploading..." : "Click image to change" }}
+          </p>
+        </div>
 
-      <button class="edit-btn" [routerLink]="['/u_editproflie']">Edit Profile</button>
-    </div>
-  </main>
-</body>
+        <div class="profile-info">
+          <p><strong>Name:</strong> {{ name }}</p>
+          <p><strong>Email:</strong> {{ email }}</p>
+        </div>
+
+        <button class="edit-btn" [routerLink]="['/u_editproflie']">
+          Edit Profile
+        </button>
+      </div>
+    </main>
+  </body>
 </html>

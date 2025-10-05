@@ -1,29 +1,76 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Header } from "../../../components/header/header";
-import { RouterLink } from '@angular/router';
+import { Header } from '../../../components/header/header';
+import { Router, RouterLink } from '@angular/router';
+import { Game } from '../../../services/api/game';
 
 @Component({
   selector: 'app-u-proflie',
   imports: [Header, RouterLink],
   templateUrl: './u-proflie.html',
-  styleUrl: './u-proflie.scss'
+  styleUrl: './u-proflie.scss',
 })
 export class UProflie {
   @ViewChild('fileInput') fileInput!: ElementRef;
-  profileImage = 'https://cdn-icons-png.flaticon.com/512/4140/4140048.png';
 
+  profileImage = 'https://cdn-icons-png.flaticon.com/512/4140/4140048.png';
+  name = '';
+  email = '';
+  isUploading = false;
+
+  constructor(private router: Router, private game: Game) {}
+
+  ngOnInit() {
+    // ✅ โหลดข้อมูลจาก localStorage
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      this.name = user.name || '';
+      this.email = user.email || '';
+      this.profileImage = user.image_url || this.profileImage;
+    }
+  }
+
+  // ✅ เปิด File Picker
   onImageClick() {
     this.fileInput.nativeElement.click();
   }
 
-  onFileSelected(event: any) {
+  // ✅ เมื่อเลือกรูปใหม่
+  async onFileSelected(event: any) {
     const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.profileImage = e.target.result;
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    const userData = localStorage.getItem('user');
+    if (!userData) return alert('❌ ยังไม่ได้เข้าสู่ระบบ');
+
+    const user = JSON.parse(userData);
+
+    // ✅ แสดง preview ทันที
+    const reader = new FileReader();
+    reader.onload = (e: any) => (this.profileImage = e.target.result);
+    reader.readAsDataURL(file);
+
+    // ✅ เริ่มอัปโหลดจริง
+    this.isUploading = true;
+    try {
+      const result = await this.game.updateProfileImage(user.id, file);
+
+      // ✅ อัปเดตใน localStorage ด้วย
+      localStorage.setItem('user', JSON.stringify(result.user));
+      this.profileImage = result.user.image_url ?? this.profileImage;
+
+      alert('✅ อัปเดตรูปภาพสำเร็จ!');
+    } catch (err: any) {
+      console.error('❌ Upload error:', err);
+      alert('เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ');
+    } finally {
+      this.isUploading = false;
     }
+  }
+
+  // ✅ ออกจากระบบ
+  onLogout() {
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
 }

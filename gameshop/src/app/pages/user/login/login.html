@@ -1,40 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KIMKY STORE - Login</title>
-</head>
-<body>
-  <header class="header">
-    <h1>KIMKY STORE</h1>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KIMKY STORE - Login</title>
+  </head>
+  <body>
+    <header class="header">
+      <h1>KIMKY STORE</h1>
+    </header>
 
-  <main class="container">
-    <div class="login-box">
-      <!-- ✅ เพิ่ม (ngSubmit)="onLogin()" -->
-      <form class="login-form" (ngSubmit)="onLogin()" #loginForm="ngForm">
-        <label for="name">EMAIL</label>
-        <input 
-          type="text" 
-          id="name" 
-          name="name" 
-          [(ngModel)]="username"
-          required>
+    <main class="container">
+      <div class="login-box">
+        <!-- ✅ เพิ่ม (ngSubmit)="onLogin()" -->
+        <form class="login-form" (ngSubmit)="onLogin()" #loginForm="ngForm">
+          <label for="name">EMAIL</label>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            placeholder="อีเมล"
+            required
+          />
 
-        <label for="password">PASSWORD</label>
-        <input 
-          type="password" 
-          id="password" 
-          name="password" 
-          [(ngModel)]="password"
-          required>
-        
-        <button type="submit" class="btn-login">LOGIN</button>
+          <label for="password">PASSWORD</label>
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="รหัสผ่าน"
+            required
+          />
 
-        <a class="signup-link" [routerLink]="['/register']">Sign Up</a>
-      </form>
-    </div>
-  </main>
-</body>
+          <button type="submit" class="btn-login" [disabled]="isLoading">
+            {{ isLoading ? "กำลังเข้าสู่ระบบ..." : "LOGIN" }}
+          </button>
+
+          <a class="signup-link" [routerLink]="['/register']">Sign Up</a>
+        </form>
+      </div>
+    </main>
+  </body>
 </html>
+
+<div class="loading-overlay" *ngIf="isLoading">
+  <div class="spinner"></div>
+  <p>กำลังเข้าสู่ระบบ...</p>
+</div>

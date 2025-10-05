@@ -1,35 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KIMKY STORE - Sign Up</title>
-</head>
-<body>
-  <header class="header">
-    <h1>KIMKY STORE</h1>
-  </header>
+<header class="header">
+  <h1>KIMKY STORE</h1>
+</header>
 
-  <main class="container">
-    <div class="signup-box">
-      <form class="signup-form">
-        <label for="name">NAME</label>
-        <input type="text" id="name" name="name" required>
+<main class="container">
+  <div class="signup-box">
+    <!-- ✅ ใช้ Angular form -->
+    <form
+      class="signup-form"
+      (ngSubmit)="onRegister()"
+      enctype="multipart/form-data"
+    >
+      <label for="name">NAME</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="name"
+        placeholder="ชื่อผู้ใช้"
+        required
+      />
 
-        <label for="email">EMAIL</label>
-        <input type="email" id="email" name="email" required>
+      <label for="email">EMAIL</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="email"
+        placeholder="อีเมล"
+        required
+      />
 
-        <label for="password">PASSWORD</label>
-        <input type="password" id="password" name="password" required>
+      <label for="password">PASSWORD</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="รหัสผ่าน"
+        required
+      />
 
-        <label for="photo">UPLOAD PHOTO</label>
-        <input type="file" id="photo" name="photo" accept="image/*">
+      <label for="photo">UPLOAD PHOTO</label>
+      <input
+        type="file"
+        id="photo"
+        name="photo"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+      />
 
-        <button type="submit" class="btn-login"  [routerLink]="['/login']">Sign UP</button>
+      <button type="submit" class="btn-login" [disabled]="isLoading">
+        {{ isLoading ? "กำลังสมัคร..." : "Sign Up" }}
+      </button>
 
-        <a href="#" class="signin-link"  [routerLink]="['/login']">Sign In</a>
-      </form>
-    </div>
-  </main>
-</body>
-</html>
+      <a class="signin-link" [routerLink]="['/login']">Sign In</a>
+    </form>
+  </div>
+</main>
+
+<!-- ✅ Loading overlay -->
+<div class="loading-overlay" *ngIf="isLoading">
+  <div class="spinner"></div>
+  <p>กำลังสมัครสมาชิก...</p>
+</div>
