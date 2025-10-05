@@ -1,0 +1,38 @@
+$bg-color: #0b0e13;
+$accent: #00ffc3;
+$text-light: #ffffff;
+
+.header {
+  background-color: $bg-color;
+  border-bottom: 2px solid $accent;
+  padding: 1.2rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    color: $text-light;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  .nav-menu {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      color: $text-light;
+      border: 1.5px solid $accent;
+      border-radius: 8px;
+      padding: 0.4rem 0.9rem;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: 0.2s;
+
+      &:hover {
+        background: $accent;
+        color: $bg-color;
+      }
+    }
+  }
+}

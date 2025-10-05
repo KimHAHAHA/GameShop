@@ -65,17 +65,23 @@ body {
   align-items: center;
   padding: 2rem;
 
+  /* ✅ หัวข้อกลาง */
   .profile-header {
     width: 100%;
     max-width: 800px;
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-bottom: 2rem;
 
     h2 {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       font-size: 1.5rem;
       font-weight: bold;
+      text-align: center;
     }
 
     .logout-btn {
@@ -94,19 +100,39 @@ body {
     }
   }
 
+  /* ✅ กล่องโปรไฟล์ */
   .profile-card {
     border: 1.5px solid $accent;
     border-radius: 10px;
     padding: 2rem;
-    width: 320px;
+    width: 340px;
     text-align: center;
+    background: transparent;
 
-    .profile-img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      margin-bottom: 1rem;
-      border: 2px solid $accent;
+    .profile-img-container {
+      position: relative;
+      cursor: pointer;
+
+      .profile-img {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        margin-bottom: 0.5rem;
+        border: 2px solid $accent;
+        transition: 0.2s ease;
+        object-fit: cover;
+
+        &:hover {
+          transform: scale(1.05);
+          opacity: 0.9;
+        }
+      }
+
+      .change-text {
+        font-size: 0.8rem;
+        color: $accent;
+        margin-bottom: 1rem;
+      }
     }
 
     .profile-info {

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Profile - KIMKY STORE</title>
+</head>
+<body>
+  <app-header></app-header>
+
+  <!-- Main -->
+  <main class="container">
+    <h2 class="title">Edit Profile</h2>
+
+    <div class="edit-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" alt="User" class="avatar">
+
+      <form class="edit-form">
+        <label for="name">Name</label>
+        <input type="text" id="name" value="User01">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" value="User@g.com">
+
+        <button type="submit" class="btn-confirm"  [routerLink]="['/u_proflie']">Confirm</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

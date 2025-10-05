@@ -1,26 +1,23 @@
-<p>a-home works!</p>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KIMKY STORE - Admin Home</title>
+  <title>KIMKY STORE - Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="header">
-    <h1>KIMKY STORE</h1>
-    <nav class="nav-menu">
-      <a href="#" class="active">Home</a>
-      <a href="#">Code</a>
-      <a href="#">User</a>
-      <a href="#">Profile</a>
-    </nav>
-  </header>
+  <app-header-admin></app-header-admin>
 
-  <!-- MAIN CONTENT -->
+  <!-- Search (ล็อคกลางจอใต้ Header) -->
+  <div class="search-bar">
+    <input type="text" placeholder="Search...">
+    <button aria-label="Search"><i class="fa fa-search"></i></button>
+  </div>
+
+  <!-- Main Layout -->
   <main class="main">
-    <!-- SIDEBAR -->
+    <!-- Sidebar -->
     <aside class="sidebar">
       <ul>
         <li><a href="#" class="active">All Game (เกมทั้งหมด)</a></li>
@@ -30,27 +27,41 @@
         <li><a href="#">Sports (กีฬา)</a></li>
         <li><a href="#">Puzzle/Strategy (ปริศนา/กลยุทธ์)</a></li>
       </ul>
-      <button class="add-btn">Add Game</button>
+
+      <!-- ✅ ปุ่ม Add Game -->
+      <button class="add-btn">
+        <i class="fa fa-plus"></i> Add Game
+      </button>
     </aside>
 
-    <!-- CONTENT -->
+    <!-- Content -->
     <section class="content">
-      <!-- Search -->
-      <div class="search-bar">
-        <input type="text" placeholder="Search...">
-        <button><i class="fa fa-search"></i></button>
-      </div>
-
-      <!-- Games List -->
-      <div class="game-list">
-        <div class="game-card">
-          <img src="https://upload.wikimedia.org/wikipedia/en/0/0d/God_of_War_Ragnarok_cover.jpg" alt="God of War Ragnarok">
-        </div>
-        <div class="game-card">
-          <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-        </div>
-        <div class="game-card">
-          <img src="https://upload.wikimedia.org/wikipedia/en/9/9a/Point_Blank_Coverart.jpg" alt="Point Blank">
+      <div class="game-box">
+        <div class="game-list">
+          <div class="game-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
+          </div>
+          <div class="game-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
+          </div>
+          <div class="game-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
+          </div>
+          <div class="game-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
+          </div>
+          <div class="game-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
+          </div>
+          <div class="game-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
+          </div>
+          <div class="game-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
+          </div>
+          <div class="game-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
+          </div>
         </div>
       </div>
     </section>

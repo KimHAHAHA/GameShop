@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-header-admin',
   imports: [RouterLink],
-  templateUrl: './register.html',
-  styleUrl: './register.scss'
+  templateUrl: './header-admin.html',
+  styleUrl: './header-admin.scss'
 })
-export class Register {
+export class HeaderAdmin {
 
 }

@@ -7,22 +7,13 @@
   <title>KIMKY STORE - Admin Profile</title>
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="header">
-    <h1>KIMKY STORE</h1>
-    <nav class="nav-menu">
-      <a href="#">Home</a>
-      <a href="#">Code</a>
-      <a href="#">User</a>
-      <a href="#" class="active">Profile</a>
-    </nav>
-  </header>
+  <app-header-admin></app-header-admin>
 
   <!-- MAIN -->
   <main class="profile-container">
     <div class="profile-header">
       <h2>Profile</h2>
-      <button class="logout-btn">Log Out</button>
+      <button class="logout-btn" [routerLink]="['/u_homeNO']">Log Out</button>
     </div>
 
     <div class="profile-card">

@@ -9,104 +9,122 @@ $text-light: #ffffff;
   font-family: 'Poppins', sans-serif;
 }
 
-body {
-  background: $bg-color;
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: $bg-color;
   color: $text-light;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  overflow-x: hidden;
 }
 
-/* ---------- HEADER ---------- */
-.header {
+/* ---------- SEARCH (fixed center) ---------- */
+.search-bar {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2rem;
-  border-bottom: 2px solid $accent;
+  justify-content: center;
 
-  h1 {
-    font-size: 1.3rem;
-    font-weight: 700;
+  background: rgba(11, 14, 19, 0.9);
+  padding: 0.7rem 0.9rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 255, 195, 0.15);
+  backdrop-filter: blur(4px);
+
+  input {
+    width: 480px;
+    padding: 0.7rem 1rem;
+    border-radius: 12px 0 0 12px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: #e2e8f0;
+    color: #000;
   }
 
-  .nav-menu {
-    display: flex;
-    gap: 1rem;
+  button {
+    background: $accent;
+    border: none;
+    border-radius: 0 12px 12px 0;
+    padding: 0.7rem 1rem;
+    cursor: pointer;
 
-    a {
-      color: $text-light;
-      border: 1.5px solid $accent;
-      border-radius: 8px;
-      padding: 0.4rem 0.9rem;
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: 0.2s;
-
-      &:hover {
-        background: $accent;
-        color: $bg-color;
-      }
-
-      &.active {
-        background: $accent;
-        color: $bg-color;
-      }
+    i {
+      color: #000;
+      font-size: 1rem;
     }
   }
 }
 
-/* ---------- LAYOUT ---------- */
+/* ---------- MAIN ---------- */
 .main {
   display: flex;
-  flex: 1;
-  padding: 2rem;
-  gap: 2rem;
+  padding: 2rem 3rem;
+  gap: 3rem;
+  margin-top: 90px;
 }
 
 /* ---------- SIDEBAR ---------- */
 .sidebar {
-  width: 200px;
+  width: 280px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: calc(100vh - 120px); /* ✅ ทำให้ Add Game อยู่ล่างสุด */
+  position: relative;
 
   ul {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 1.2rem;
 
     a {
       color: $accent;
-      font-size: 0.9rem;
       text-decoration: none;
-      transition: 0.2s;
+      font-size: 1rem;
+      line-height: 1.4;
+      transition: 0.2s ease;
+
+      &.active {
+        font-weight: bold;
+        text-decoration: underline;
+      }
 
       &:hover {
         text-decoration: underline;
       }
-
-      &.active {
-        font-weight: bold;
-      }
     }
   }
 
+  /* ✅ ปุ่ม Add Game */
   .add-btn {
-    margin-top: 1rem;
-    border: 1.5px solid $accent;
-    background: transparent;
-    color: $accent;
-    padding: 0.5rem 1rem;
+    background: $accent;
+    color: $bg-color;
+    border: none;
+    padding: 0.8rem 1.2rem;
     border-radius: 8px;
-    cursor: pointer;
     font-weight: 600;
-    transition: 0.2s;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    margin-top: auto;
+    margin-bottom: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 
     &:hover {
-      background: $accent;
-      color: $bg-color;
+      opacity: 0.8;
+      transform: scale(1.03);
+    }
+
+    i {
+      font-size: 0.9rem;
     }
   }
 }
@@ -114,53 +132,71 @@ body {
 /* ---------- CONTENT ---------- */
 .content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 1rem;
 
-  .search-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 2rem;
+  .game-box {
+    width: 95%;
+    padding: 1.5rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
 
-    input {
-      width: 400px;
-      padding: 0.6rem 1rem;
-      border: none;
-      border-radius: 8px 0 0 8px;
-      outline: none;
-      font-size: 0.9rem;
-    }
+    .game-list {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      padding-bottom: 0.8rem;
+      scroll-behavior: smooth;
 
-    button {
-      background: $accent;
-      border: none;
-      border-radius: 0 8px 8px 0;
-      padding: 0.6rem 1rem;
-      cursor: pointer;
+      &::-webkit-scrollbar {
+        height: 8px;
+      }
+      &::-webkit-scrollbar-track {
+        background: #ffffff;
+        border-radius: 10px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: $accent;
+        border-radius: 10px;
+      }
+
+      .game-card {
+        border: 2px solid $accent;
+        border-radius: 10px;
+        overflow: hidden;
+        flex: 0 0 240px;
+        transition: 0.3s;
+        cursor: pointer;
+
+        img {
+          width: 100%;
+          height: 340px;
+          object-fit: cover;
+          display: block;
+        }
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
     }
   }
+}
 
-  .game-list {
-    display: flex;
-    gap: 1rem;
-    overflow-x: auto;
-    padding-bottom: 1rem;
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .main {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
 
-    .game-card {
-      border: 2px solid $accent;
-      border-radius: 10px;
-      overflow: hidden;
-      flex: 0 0 180px;
-      transition: 0.3s ease;
+  .sidebar {
+    width: 220px;
+  }
 
-      img {
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-      }
-
-      &:hover {
-        transform: scale(1.05);
-      }
-    }
+  .search-bar input {
+    width: 320px;
   }
 }

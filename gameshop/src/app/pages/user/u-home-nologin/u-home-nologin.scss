@@ -17,17 +17,50 @@ html, body {
   overflow-x: hidden;
 }
 
+/* ---------- HEADER ---------- */
+.header {
+  background-color: $bg-color;
+  border-bottom: 2px solid $accent;
+  padding: 1rem 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* ✅ ให้ h1 อยู่ซ้าย / ปุ่มอยู่ขวา */
+
+  h1 {
+    color: $text-light;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .login-btn {
+    background: transparent;
+    color: $accent;
+    border: 1.5px solid $accent;
+    padding: 0.4rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: $accent;
+      color: $bg-color;
+      transform: scale(1.05);
+    }
+  }
+}
+
 /* ---------- SEARCH (fixed center) ---------- */
 .search-bar {
   position: fixed;
-  top: 100px;                 /* ระยะใต้ header */
+  top: 86px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: rgba(11, 14, 19, 0.9);
   padding: 0.7rem 0.9rem;
   border-radius: 12px;
@@ -62,16 +95,14 @@ html, body {
 /* ---------- MAIN ---------- */
 .main {
   display: flex;
-  padding: 2rem 3rem; /* เพิ่ม padding ด้านข้าง */
-  gap: 3rem;          /* ระยะห่าง sidebar ↔ content */
-  /* กัน search-bar ทับ content เมื่อ fixed */
-  margin-top: 90px;
+  padding: 2rem 3rem;
+  gap: 3rem;
+  margin-top: 90px; /* ป้องกันทับกับ search-bar */
 }
 
 /* ---------- SIDEBAR ---------- */
 .sidebar {
-  width: 280px; /* ขยายพื้นที่ข้อความยาวได้ */
-
+  width: 280px;
   ul {
     list-style: none;
     display: flex;
@@ -83,8 +114,7 @@ html, body {
       text-decoration: none;
       font-size: 1rem;
       line-height: 1.4;
-      word-break: keep-all; /* ไม่ตัดคำกลางบรรทัด */
-      white-space: normal;  /* ให้ขึ้นบรรทัดใหม่ได้ */
+      white-space: normal;
       transition: 0.2s ease;
 
       &.active {
@@ -104,17 +134,15 @@ html, body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* ชิดซ้ายแต่ขยับออกจาก sidebar */
+  align-items: flex-start;
   margin-left: 1rem;
 
-  /* ---------- GAME BOX ---------- */
   .game-box {
     width: 95%;
     padding: 1.5rem 1rem;
-    border: none; /* ไม่มีสีขอบ */
+    border: none;
     background: rgba(255, 255, 255, 0.02);
     border-radius: 10px;
-    box-shadow: none;
 
     h2 {
       text-align: left;
@@ -123,20 +151,19 @@ html, body {
       margin-bottom: 1rem;
     }
 
-    /* ---------- GAME LIST (Horizontal scroll) ---------- */
     .game-list {
       display: flex;
       gap: 2rem;
-      overflow-x: auto;     /* เลื่อนขวาได้ */
+      overflow-x: auto;
       overflow-y: hidden;
       padding-bottom: 0.8rem;
       scroll-behavior: smooth;
-
-      /* Scrollbar style */
-      scrollbar-width: thin;               /* Firefox */
+      scrollbar-width: thin;
       scrollbar-color: $accent transparent;
 
-      &::-webkit-scrollbar { height: 8px; } /* Chrome/Edge */
+      &::-webkit-scrollbar {
+        height: 8px;
+      }
       &::-webkit-scrollbar-track {
         background: #ffffff;
         border-radius: 10px;
@@ -146,36 +173,25 @@ html, body {
         border-radius: 10px;
       }
 
-      /* การ์ดใหญ่ขึ้น */
       .game-card {
         border: 2px solid $accent;
         border-radius: 10px;
         overflow: hidden;
-        flex: 0 0 240px;     /* เดิม 200px → 240px */
+        flex: 0 0 240px;
         transition: 0.3s;
         cursor: pointer;
 
         img {
           width: 100%;
-          height: 340px;     /* เดิม 280px → 340px */
+          height: 340px;
           object-fit: cover;
           display: block;
         }
 
-        &:hover { transform: scale(1.05); }
+        &:hover {
+          transform: scale(1.05);
+        }
       }
     }
   }
-}
-
-/* ---------- Responsive (optional) ---------- */
-@media (max-width: 768px) {
-  .main {
-    padding: 1rem;
-    gap: 1.5rem;
-  }
-
-  .sidebar { width: 220px; }
-
-  .search-bar input { width: 320px; }
 }

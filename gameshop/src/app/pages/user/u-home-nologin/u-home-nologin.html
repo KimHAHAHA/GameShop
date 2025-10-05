@@ -7,7 +7,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
- <app-header></app-header>
+  <!-- Header -->
+  <header class="header">
+    <h1>KIMKY STORE</h1>
+    <button class="login-btn"  [routerLink]="['/login']">Login</button>
+  </header>
+
   <!-- Search (ล็อคกลางจอใต้ Header) -->
   <div class="search-bar">
     <input type="text" placeholder="Search...">
@@ -30,12 +35,13 @@
 
     <!-- Content -->
     <section class="content">
-      <!-- ฟอร์ม/กล่องรายการเกม -->
       <div class="game-box">
-        <h2></h2>
+        <h2>Top Game</h2>
 
-        <!-- รายการการ์ด (เลื่อนขวาได้) -->
         <div class="game-list">
+          <div class="game-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
+          </div>
           <div class="game-card">
             <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
           </div>
