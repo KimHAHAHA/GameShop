@@ -8,6 +8,11 @@ import { AHome } from './pages/admin/a-home/a-home';
 import { UHomeNologin } from './pages/user/u-home-nologin/u-home-nologin';
 import { UEditProfile } from './pages/user/u-edit-profile/u-edit-profile';
 import { AuthGuard } from './guards/auth.guard';
+import { UWallet } from './pages/user/u-wallet/u-wallet';
+import { ADetails } from './pages/admin/a-details/a-details';
+import { UDetails } from './pages/user/u-details/u-details';
+import { AAddgame } from './pages/admin/a-addgame/a-addgame';
+import { AEditgame } from './pages/admin/a-editgame/a-editgame';
 
 export const routes: Routes = [
   { path: '', component: UHomeNologin },
@@ -19,8 +24,15 @@ export const routes: Routes = [
   { path: 'u_home', component: UHome, canActivate: [AuthGuard] },
   { path: 'u_homeNO', component: UHomeNologin, canActivate: [AuthGuard] },
   { path: 'u_editproflie', component: UEditProfile, canActivate: [AuthGuard] },
+  { path: 'u_wallet', component: UWallet, canActivate: [AuthGuard] },
+  { path: 'u_details', component: UDetails, canActivate: [AuthGuard] },
+
 
   //Admin
   { path: 'a_proflie', component: AProfile, canActivate: [AuthGuard] },
   { path: 'a_home', component: AHome, canActivate: [AuthGuard] },
+  { path: 'a_details', component: ADetails, canActivate: [AuthGuard] },
+  { path: 'a_addgame', component: AAddgame, canActivate: [AuthGuard] },
+    { path: 'a_editgame', component: AEditgame, canActivate: [AuthGuard] },
+
 ];

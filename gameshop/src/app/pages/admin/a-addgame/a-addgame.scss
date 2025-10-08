@@ -1,0 +1,136 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #0c0c0c;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+.header {
+  background-color: #111;
+  border-bottom: 3px solid #00fff0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+
+  .logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+
+  .nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 6px;
+    padding: 5px 15px;
+    border: 2px solid #00fff0;
+    border-radius: 8px;
+    transition: 0.2s;
+
+    &:hover,
+    &.active {
+      background-color: #00fff0;
+      color: #000;
+    }
+  }
+}
+
+/* Container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+}
+
+/* Edit Card */
+.edit-card {
+  display: flex;
+  align-items: flex-start;
+  background-color: #0e0e0e;
+  border: 2px solid #00fff0;
+  border-radius: 12px;
+  padding: 25px;
+  gap: 40px;
+  width: 700px;
+}
+
+/* Image Section */
+.image-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 230px;
+    border: 2px solid #00fff0;
+    border-radius: 10px;
+  }
+
+  .btn-upload {
+    margin-top: 10px;
+    background: none;
+    color: white;
+    border: 2px solid #00fff0;
+    border-radius: 8px;
+    padding: 6px 15px;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+      background-color: #00fff0;
+      color: #000;
+    }
+  }
+}
+
+/* Form Section */
+.form-section {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+  }
+
+  label {
+    margin: 8px 0 4px 0;
+    font-size: 0.95rem;
+  }
+
+  input,
+  select {
+    padding: 7px;
+    border: 2px solid #00fff0;
+    border-radius: 6px;
+    background-color: #111;
+    color: white;
+    margin-bottom: 10px;
+    outline: none;
+
+    &:focus {
+      box-shadow: 0 0 5px #00fff0;
+    }
+  }
+
+  .btn-confirm {
+    margin-top: 8px;
+    background-color: #00fff0;
+    color: #000;
+    font-weight: 600;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}

@@ -1,0 +1,148 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #0c0c0c;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+.header {
+  background-color: #111;
+  border-bottom: 3px solid #00fff0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+
+  .logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+
+  .nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 6px;
+    padding: 5px 15px;
+    border: 2px solid #00fff0;
+    border-radius: 8px;
+    transition: 0.2s;
+
+    &:hover,
+    &.active {
+      background-color: #00fff0;
+      color: #000;
+    }
+  }
+}
+
+/* Container */
+.container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.wallet-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+/* Wallet Box */
+.wallet-box {
+  border: 2px solid #00fff0;
+  border-radius: 10px;
+  width: 380px;
+  margin: 0 auto 30px auto;
+  padding: 20px;
+  background-color: #0e0e0e;
+
+  .balance-label {
+    font-weight: 500;
+  }
+
+  .balance {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin: 10px 0;
+
+    span {
+      font-size: 1rem;
+      color: #00fff0;
+    }
+  }
+
+  .topup-section {
+    p {
+      margin: 10px 0;
+    }
+
+    .btn-group {
+      margin: 10px 0;
+
+      button {
+        margin: 5px;
+        padding: 8px 15px;
+        background: none;
+        color: white;
+        border: 2px solid #00fff0;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:hover {
+          background-color: #00fff0;
+          color: #000;
+        }
+      }
+    }
+
+    input {
+      width: 90%;
+      padding: 8px;
+      border: 2px solid #00fff0;
+      border-radius: 6px;
+      background-color: #111;
+      color: white;
+      margin: 10px 0;
+    }
+
+    .btn-confirm {
+      background-color: #00fff0;
+      color: #000;
+      border: none;
+      padding: 10px 30px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+/* History Box */
+.history-box {
+  width: 400px;
+  margin: 0 auto;
+  border: 2px solid #00fff0;
+  border-radius: 10px;
+  background-color: #0e0e0e;
+  padding: 15px;
+  text-align: left;
+
+  h3 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .history-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+    font-weight: 500;
+  }
+}

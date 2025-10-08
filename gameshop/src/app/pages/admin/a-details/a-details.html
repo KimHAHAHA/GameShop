@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KIMKY STORE - Admin Game Details</title>
+</head>
+<body>
+  <app-header-admin></app-header-admin>
+
+  <main class="container">
+    <div class="game-card">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png"
+        alt="GTA"
+      />
+
+      <div class="game-info">
+        <h2>God of War</h2>
+        <p><strong>ราคา:</strong> 1000 THB</p>
+        <p><strong>ประเภท:</strong> Action</p>
+        <p><strong>รายละเอียด:</strong> เกมต่อสู้</p>
+        <p><strong>วันวางขาย:</strong> 12/1/2017</p>
+        <p><strong>อันดับเกมขายดี:</strong> 2</p>
+
+        <button class="btn-edit" [routerLink]="['/a_editgame']">
+          Edit details
+        </button>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

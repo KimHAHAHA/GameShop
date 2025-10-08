@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KIMKY STORE - Add Game</title>
+</head>
+<body>
+  <app-header></app-header>
+
+  <main class="container">
+    <div class="edit-card">
+      <div class="image-section">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/en/9/9d/God_of_War_Ragnar%C3%B6k_cover.jpg"
+          alt="God of War"
+        />
+        <label class="btn-upload">
+        + รูปภาพ
+        <input type="file" (change)="onImageSelected($event)" accept="image/*" hidden />
+      </label>
+      </div>
+
+      <form class="form-section">
+        <h2>God of War</h2>
+
+        <label for="name">ชื่อเกม</label>
+        <input type="text" id="name" value="God of War" />
+
+        <label for="price">ราคา</label>
+        <input type="number" id="price" value="1000" />
+
+        <label for="type">ประเภท</label>
+        <select id="type">
+          <option>Action</option>
+          <option>Adventure</option>
+          <option>RPG</option>
+          <option>Shooter</option>
+          <option>Sports</option>
+        </select>
+
+        <label for="detail">รายละเอียด</label>
+        <input type="text" id="detail" value="เกมต่อสู้" />
+
+        <button type="submit" class="btn-confirm"   [routerLink]="['/a_home']">Confirm</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>
