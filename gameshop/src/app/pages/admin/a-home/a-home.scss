@@ -17,15 +17,15 @@ html, body {
   overflow-x: hidden;
 }
 
-  .game-title {
-    margin-top: 8px;
-    font-weight: 600;
-    font-size: 16px;
-    color: #00ffc3;
-    text-shadow: 0 0 6px rgba(0, 255, 195, 0.3);
-  }
+.game-title {
+  margin-top: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  color: $accent;
+  text-shadow: 0 0 6px rgba(0, 255, 195, 0.3);
+}
 
-/* ---------- SEARCH (fixed center) ---------- */
+/* ---------- SEARCH ---------- */
 .search-bar {
   position: fixed;
   top: 100px;
@@ -35,7 +35,6 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: rgba(11, 14, 19, 0.9);
   padding: 0.7rem 0.9rem;
   border-radius: 12px;
@@ -81,8 +80,7 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: calc(100vh - 120px); /* ✅ ทำให้ Add Game อยู่ล่างสุด */
-  position: relative;
+  height: calc(100vh - 120px);
 
   ul {
     list-style: none;
@@ -108,7 +106,6 @@ html, body {
     }
   }
 
-  /* ✅ ปุ่ม Add Game */
   .add-btn {
     background: $accent;
     color: $bg-color;
@@ -120,7 +117,6 @@ html, body {
     transition: 0.2s ease-in-out;
     margin-top: auto;
     margin-bottom: 8rem;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -144,20 +140,30 @@ html, body {
   flex-direction: column;
   align-items: flex-start;
   margin-left: 1rem;
+  width: 100%;
+  max-width: calc(100vw - 380px); /* ✅ ให้กินพื้นที่ที่เหลือจาก sidebar */
 
   .game-box {
-    width: 95%;
-    padding: 1.5rem 1rem;
+    width: 100%;                /* ✅ แก้จาก 43% → 100% */
+    min-width: 100%;            /* ✅ ป้องกันหด */
+    padding: 1.5rem 0;
     background: rgba(255, 255, 255, 0.02);
     border-radius: 10px;
+    overflow: hidden;
+    transition: none;
 
     .game-list {
       display: flex;
+      align-items: flex-start;
       gap: 2rem;
       overflow-x: auto;
-      padding-bottom: 0.8rem;
+      overflow-y: hidden;
+      width: 100%;
+      max-width: 100%;
+      padding: 0 1rem 0.8rem;
       scroll-behavior: smooth;
 
+      /* ✅ ให้ scrollbar คงขนาดเสมอ */
       &::-webkit-scrollbar {
         height: 8px;
       }
@@ -206,5 +212,9 @@ html, body {
 
   .search-bar input {
     width: 320px;
+  }
+
+  .content {
+    max-width: 100%;
   }
 }

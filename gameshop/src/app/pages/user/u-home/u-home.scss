@@ -15,19 +15,23 @@ html, body {
   background-color: $bg-color;
   color: $text-light;
   overflow-x: hidden;
+  overflow-y: scroll; /* ✅ ป้องกัน layout shift เมื่อ scrollbar หาย/ปรากฏ */
 }
-  .game-title {
-    margin-top: 8px;
-    font-weight: 600;
-    font-size: 16px;
-    color: #00ffc3;
-    text-shadow: 0 0 6px rgba(0, 255, 195, 0.3);
-  }
+
+/* ---------- TITLE GAME ---------- */
+.game-title {
+  margin-top: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  color: $accent;
+  text-shadow: 0 0 6px rgba(0, 255, 195, 0.3);
+  text-align: center;
+}
 
 /* ---------- SEARCH (fixed center) ---------- */
 .search-bar {
   position: fixed;
-  top: 100px;                 /* ระยะใต้ header */
+  top: 100px; /* ระยะใต้ header */
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
@@ -63,21 +67,33 @@ html, body {
       color: #000;
       font-size: 1rem;
     }
+
+    &:hover {
+      opacity: 0.9;
+      transform: scale(1.05);
+    }
   }
 }
 
-/* ---------- MAIN ---------- */
+/* ---------- MAIN LAYOUT ---------- */
 .main {
   display: flex;
-  padding: 2rem 3rem; /* เพิ่ม padding ด้านข้าง */
-  gap: 3rem;          /* ระยะห่าง sidebar ↔ content */
-  /* กัน search-bar ทับ content เมื่อ fixed */
+  padding: 2rem 3rem;
+  gap: 3rem;
   margin-top: 90px;
+  width: 100%;
+  max-width: 100vw; /* ✅ ป้องกันล้นขอบจอ */
+  overflow: hidden;
 }
 
 /* ---------- SIDEBAR ---------- */
 .sidebar {
-  width: 280px; /* ขยายพื้นที่ข้อความยาวได้ */
+  width: 280px;
+  flex-shrink: 0; /* ✅ ป้องกัน sidebar หด */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100vh - 120px);
 
   ul {
     list-style: none;
@@ -90,8 +106,6 @@ html, body {
       text-decoration: none;
       font-size: 1rem;
       line-height: 1.4;
-      word-break: keep-all; /* ไม่ตัดคำกลางบรรทัด */
-      white-space: normal;  /* ให้ขึ้นบรรทัดใหม่ได้ */
       transition: 0.2s ease;
 
       &.active {
@@ -104,6 +118,34 @@ html, body {
       }
     }
   }
+
+  /* ปุ่ม Add Game */
+  .add-btn {
+    background: $accent;
+    color: $bg-color;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    margin-top: auto;
+    margin-bottom: 8rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &:hover {
+      opacity: 0.8;
+      transform: scale(1.03);
+    }
+
+    i {
+      font-size: 0.9rem;
+    }
+  }
 }
 
 /* ---------- CONTENT ---------- */
@@ -111,39 +153,36 @@ html, body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* ชิดซ้ายแต่ขยับออกจาก sidebar */
+  align-items: flex-start;
   margin-left: 1rem;
+  width: 100%;
+  max-width: calc(100vw - 380px); /* ✅ พอดีกับ sidebar และ padding รวม */
+  overflow: hidden; /* ✅ กันล้นขอบ */
 
-  /* ---------- GAME BOX ---------- */
   .game-box {
-    width: 95%;
-    padding: 1.5rem 1rem;
-    border: none; /* ไม่มีสีขอบ */
+    width: 100%; /* ✅ ฟอร์มเต็มความกว้าง content */
+    min-width: 100%;
+    padding: 1.5rem 0;
     background: rgba(255, 255, 255, 0.02);
     border-radius: 10px;
-    box-shadow: none;
+    overflow: hidden;
+    transition: none;
 
-    h2 {
-      text-align: left;
-      color: $accent;
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-
-    /* ---------- GAME LIST (Horizontal scroll) ---------- */
     .game-list {
       display: flex;
+      align-items: flex-start;
       gap: 2rem;
-      overflow-x: auto;     /* เลื่อนขวาได้ */
+      overflow-x: auto; /* ✅ เลื่อนแนวนอนได้ */
       overflow-y: hidden;
-      padding-bottom: 0.8rem;
+      width: 100%;
+      max-width: 100%;
+      padding: 0 1rem 0.8rem;
       scroll-behavior: smooth;
 
-      /* Scrollbar style */
-      scrollbar-width: thin;               /* Firefox */
-      scrollbar-color: $accent transparent;
-
-      &::-webkit-scrollbar { height: 8px; } /* Chrome/Edge */
+      /* ✅ Scrollbar สวยงาม */
+      &::-webkit-scrollbar {
+        height: 8px;
+      }
       &::-webkit-scrollbar-track {
         background: #ffffff;
         border-radius: 10px;
@@ -153,36 +192,64 @@ html, body {
         border-radius: 10px;
       }
 
-      /* การ์ดใหญ่ขึ้น */
+      /* ---------- GAME CARD ---------- */
       .game-card {
         border: 2px solid $accent;
         border-radius: 10px;
         overflow: hidden;
-        flex: 0 0 240px;     /* เดิม 200px → 240px */
+        flex: 0 0 240px; /* ✅ ขนาดคงที่ไม่หด */
         transition: 0.3s;
         cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.2);
 
         img {
           width: 100%;
-          height: 340px;     /* เดิม 280px → 340px */
+          height: 340px;
           object-fit: cover;
           display: block;
         }
 
-        &:hover { transform: scale(1.05); }
+        &:hover {
+          transform: scale(1.05);
+        }
       }
     }
   }
 }
 
-/* ---------- Responsive (optional) ---------- */
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .main {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .content {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .main {
     padding: 1rem;
     gap: 1.5rem;
   }
 
-  .sidebar { width: 220px; }
+  .sidebar {
+    width: 220px;
+  }
 
-  .search-bar input { width: 320px; }
+  .search-bar input {
+    width: 320px;
+  }
+
+  .content {
+    max-width: 100%;
+  }
 }
