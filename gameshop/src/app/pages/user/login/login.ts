@@ -35,9 +35,6 @@ export class Login {
       const result = await this.game.login(payload);
       const user = result.user;
 
-      console.log('✅ เข้าสู่ระบบสำเร็จ:', user);
-      alert('ยินดีต้อนรับ ' + user.name);
-
       // 🔒 เก็บข้อมูลไว้ใน localStorage
       localStorage.setItem('user', JSON.stringify(user));
 

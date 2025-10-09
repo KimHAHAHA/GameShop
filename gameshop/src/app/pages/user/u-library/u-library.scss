@@ -1,0 +1,159 @@
+$bg-color: #0b0e13;
+$accent: #00ffc3;
+$text-light: #ffffff;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: $bg-color;
+  color: $text-light;
+  overflow-x: hidden;
+}
+
+/* ---------- MAIN ---------- */
+.main {
+  display: flex;
+  padding: 2rem 3rem;
+  margin-top: 100px;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  /* ส่วนหัวที่มีช่องค้นหาและหัวข้อ */
+  .top-header {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* ให้ชื่อหัวข้ออยู่สูงกว่าเล็กน้อย */
+    width: 95%;
+    margin-bottom: 1.5rem;
+    position: relative;
+    gap: 10px;
+
+    /* ช่องค้นหาอยู่ซ้าย */
+    .search-tools {
+      position: absolute;
+      left: 0;
+      bottom: 2px; /* ให้ต่ำกว่าคำว่า Top Game นิดนึง */
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .date-input {
+        padding: 0.5rem 0.8rem;
+        border-radius: 10px;
+        border: 2px solid $accent;
+        background: #e2e8f0;
+        color: #000;
+        font-size: 1rem;
+        outline: none;
+        cursor: pointer;
+
+        &::-webkit-calendar-picker-indicator {
+          cursor: pointer;
+        }
+      }
+
+      button {
+        background: $accent;
+        border: none;
+        border-radius: 10px;
+        padding: 0.5rem 0.8rem;
+        cursor: pointer;
+        transition: 0.3s;
+
+        i {
+          color: #000;
+          font-size: 1rem;
+        }
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    /* ชื่อหัวข้ออยู่ตรงกลางและสูงขึ้น */
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      text-align: center;
+      color: $text-light;
+      position: relative;
+      top: -80px; /* ยกขึ้นจากเดิม */
+    }
+  }
+
+  /* ---------- กล่องเกม ---------- */
+  .game-box {
+    width: 95%;
+    padding: 1.5rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+
+    .game-list {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      padding-bottom: 0.8rem;
+      scroll-behavior: smooth;
+
+      scrollbar-width: thin;
+      scrollbar-color: $accent transparent;
+
+      &::-webkit-scrollbar { height: 8px; }
+      &::-webkit-scrollbar-track {
+        background: #ffffff;
+        border-radius: 10px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: $accent;
+        border-radius: 10px;
+      }
+
+      .game-card {
+        border: 2px solid $accent;
+        border-radius: 10px;
+        overflow: hidden;
+        flex: 0 0 240px;
+        transition: 0.3s;
+        cursor: pointer;
+
+        img {
+          width: 100%;
+          height: 340px;
+          object-fit: cover;
+          display: block;
+        }
+
+        &:hover { transform: scale(1.05); }
+      }
+    }
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .top-header {
+    flex-direction: column;
+    align-items: center;
+
+    .search-tools {
+      position: static;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      top: 0;
+    }
+  }
+}

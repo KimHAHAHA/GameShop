@@ -1,7 +1,7 @@
 $bg-color: #0b0e13;
 $accent: #00ffc3;
 $text-light: #ffffff;
-$input-bg: #ffffff;
+$input-bg: #1a1d23; // ✅ เปลี่ยนพื้นหลังช่องกรอกให้เข้ม เพื่อให้ตัวอักษรขาวอ่านง่าย
 
 * {
   margin: 0;
@@ -18,6 +18,7 @@ body {
   min-height: 100vh;
 }
 
+/* ---------- HEADER ---------- */
 .header {
   background-color: $bg-color;
   border-bottom: 2px solid $accent;
@@ -30,13 +31,16 @@ body {
   }
 }
 
+/* ---------- MAIN CONTAINER ---------- */
 .container {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 50px;
 }
 
+/* ---------- SIGNUP BOX ---------- */
 .signup-box {
   border: 1px solid $accent;
   border-radius: 6px;
@@ -44,8 +48,15 @@ body {
   text-align: center;
   width: 320px;
   background-color: transparent;
+  color: $text-light;
+
+  h2 {
+    color: $text-light; /* ✅ หัวข้อ Register เป็นสีขาว */
+    margin-bottom: 1rem;
+  }
 }
 
+/* ---------- SIGNUP FORM ---------- */
 .signup-form {
   display: flex;
   flex-direction: column;
@@ -55,19 +66,27 @@ body {
     text-align: left;
     font-size: 0.8rem;
     letter-spacing: 1px;
+    color: $text-light; /* ✅ label เป็นสีขาว */
   }
 
+  /* ---------- ช่องกรอก ---------- */
   input[type="text"],
   input[type="email"],
   input[type="password"],
   input[type="file"] {
     padding: 0.5rem;
     border-radius: 5px;
-    border: none;
+    border: 1px solid $accent;
     background: $input-bg;
     font-size: 0.9rem;
+    color: $text-light; /* ✅ ตัวอักษรในช่องกรอกเป็นสีขาว */
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.6); /* ✅ placeholder สีขาวจาง */
+    }
   }
 
+  /* ---------- ช่องอัปโหลดรูป ---------- */
   input[type="file"] {
     background: none;
     color: $text-light;
@@ -86,6 +105,7 @@ body {
     }
   }
 
+  /* ---------- ปุ่มสมัคร ---------- */
   .btn-login {
     background-color: $accent;
     border: none;
@@ -101,6 +121,7 @@ body {
     }
   }
 
+  /* ---------- ลิงก์ Sign In ---------- */
   .signin-link {
     margin-top: 0.5rem;
     font-size: 0.8rem;
@@ -109,6 +130,38 @@ body {
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+}
+
+/* ---------- LOADING OVERLAY ---------- */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(11, 14, 19, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: $text-light;
+  z-index: 9999;
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid $accent;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 1rem;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
     }
   }
 }

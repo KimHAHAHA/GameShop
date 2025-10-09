@@ -1,0 +1,88 @@
+body {
+  background-color: #0d0d0d;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main container */
+.container {
+  text-align: center;
+  padding: 30px;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+  }
+
+  .game-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+
+    .game-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 2px solid #00fff2;
+      border-radius: 10px;
+      width: 60%;
+      padding: 5px 10px;
+      background-color: #111;
+      position: relative;
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+
+        .title {
+          font-weight: 600;
+          margin: 5px 0;
+        }
+
+        img {
+          width: 100%;
+          height: 80px;
+          object-fit: cover;
+          border-radius: 8px;
+        }
+      }
+
+      .delete-btn {
+        background: none;
+        border: none;
+        color: #ff3fcb;
+        font-size: 22px;
+        cursor: pointer;
+        margin-left: 10px;
+        transition: 0.2s;
+
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+
+  .buy-btn {
+    margin-top: 30px;
+    padding: 8px 25px;
+    border: 2px solid #00fff2;
+    border-radius: 8px;
+    background: transparent;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: #00fff2;
+      color: #000;
+    }
+  }
+}
