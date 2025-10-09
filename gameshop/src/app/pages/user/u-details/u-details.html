@@ -1,65 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KIMKY STORE - Store</title>
-</head>
-<body>
-  <app-header></app-header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KIMKY STORE - Store</title>
+  </head>
+  <body>
+    <app-header></app-header>
 
-  <!-- Main Game Section -->
-  <main class="container">
-    <div class="game-card">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png"
-        alt="GTA"
-      />
+    <!-- Main Game Section -->
+    <main class="container">
+      <div class="game-card">
+        <img
+          [src]="
+            game.image_url ||
+            'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+          "
+          [alt]="game.title"
+        />
 
-      <div class="game-info">
-        <h2>God of War</h2>
-        <p><strong>ราคา:</strong> 1000 THB</p>
-        <p><strong>ประเภท:</strong> Action</p>
-        <p><strong>รายละเอียด:</strong> เกมต่อสู้</p>
-        <p><strong>วันวางขาย:</strong> 12/1/2017</p>
-        <p><strong>อันดับเกมขายดี:</strong> 2</p>
+        <div class="game-info">
+          <h2>{{ game.title }}</h2>
+          <p><strong>ประเภท:</strong> {{ game.category }}</p>
+          <p><strong>ราคา:</strong> {{ game.price | currency : "THB" }}</p>
+          <p>
+            <strong>วันวางขาย:</strong>
+            {{ game.created_at | date : "dd/MM/yyyy" }}
+          </p>
+          <p><strong>รายละเอียด:</strong> {{ game.description }}</p>
 
-        <div class="btn-group">
-          <button class="btn-buy" id="buyBtn">BUY</button>
-          <button class="btn-add">+</button>
+          <div class="btn-group">
+            <button class="btn-buy" id="buyBtn">BUY</button>
+            <button class="btn-add">+</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Popup -->
+    <div class="popup-overlay" id="popup">
+      <div class="popup-box">
+        <h3>BUY</h3>
+        <p class="price">ราคา: <span>1000 THB</span></p>
+
+        <label for="code">Code:</label>
+        <input type="text" id="code" placeholder="กรอกรหัสโค้ดที่นี่" />
+
+        <div class="popup-btns">
+          <button class="btn-cancel" id="cancelBtn">Cancel</button>
+          <button class="btn-confirm">Confirm</button>
         </div>
       </div>
     </div>
-  </main>
 
-  <!-- Popup -->
-  <div class="popup-overlay" id="popup">
-    <div class="popup-box">
-      <h3>BUY</h3>
-      <p class="price">ราคา: <span>1000 THB</span></p>
+    <script>
+      const popup = document.getElementById("popup");
+      const buyBtn = document.getElementById("buyBtn");
+      const cancelBtn = document.getElementById("cancelBtn");
 
-      <label for="code">Code:</label>
-      <input type="text" id="code" placeholder="กรอกรหัสโค้ดที่นี่" />
+      buyBtn.addEventListener("click", () => {
+        popup.classList.add("show");
+      });
 
-      <div class="popup-btns">
-        <button class="btn-cancel" id="cancelBtn">Cancel</button>
-        <button class="btn-confirm">Confirm</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const popup = document.getElementById('popup');
-    const buyBtn = document.getElementById('buyBtn');
-    const cancelBtn = document.getElementById('cancelBtn');
-
-    buyBtn.addEventListener('click', () => {
-      popup.classList.add('show');
-    });
-
-    cancelBtn.addEventListener('click', () => {
-      popup.classList.remove('show');
-    });
-  </script>
-</body>
+      cancelBtn.addEventListener("click", () => {
+        popup.classList.remove("show");
+      });
+    </script>
+  </body>
 </html>

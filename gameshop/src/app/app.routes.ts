@@ -23,16 +23,17 @@ export const routes: Routes = [
   { path: 'u_proflie', component: UProflie, canActivate: [AuthGuard] },
   { path: 'u_home', component: UHome, canActivate: [AuthGuard] },
   { path: 'u_homeNO', component: UHomeNologin, canActivate: [AuthGuard] },
+  { path: 'u_details/:id', component: UDetails, canActivate: [AuthGuard] },
   { path: 'u_editproflie', component: UEditProfile, canActivate: [AuthGuard] },
   { path: 'u_wallet', component: UWallet, canActivate: [AuthGuard] },
   { path: 'u_details', component: UDetails, canActivate: [AuthGuard] },
 
-
   //Admin
   { path: 'a_proflie', component: AProfile, canActivate: [AuthGuard] },
   { path: 'a_home', component: AHome, canActivate: [AuthGuard] },
+  { path: 'a_details/:id', component: ADetails, canActivate: [AuthGuard] },
+  { path: 'a_editgame/:id', component: AEditgame, canActivate: [AuthGuard] },
   { path: 'a_details', component: ADetails, canActivate: [AuthGuard] },
   { path: 'a_addgame', component: AAddgame, canActivate: [AuthGuard] },
-    { path: 'a_editgame', component: AEditgame, canActivate: [AuthGuard] },
-
+  { path: 'a_editgame', component: AEditgame, canActivate: [AuthGuard] },
 ];

@@ -1,70 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KIMKY STORE - Home</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-  <app-header-admin></app-header-admin>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KIMKY STORE - Home</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <app-header-admin></app-header-admin>
 
-  <!-- Search (ล็อคกลางจอใต้ Header) -->
-  <div class="search-bar">
-    <input type="text" placeholder="Search...">
-    <button aria-label="Search"><i class="fa fa-search"></i></button>
-  </div>
-
-  <!-- Main Layout -->
-  <main class="main">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <ul>
-        <li><a href="#" class="active">All Game (เกมทั้งหมด)</a></li>
-        <li><a href="#">Action (แอ็กชัน)</a></li>
-        <li><a href="#">Adventure (ผจญภัย)</a></li>
-        <li><a href="#">Role-Playing (RPG) (สวมบทบาท)</a></li>
-        <li><a href="#">Sports (กีฬา)</a></li>
-        <li><a href="#">Puzzle/Strategy (ปริศนา/กลยุทธ์)</a></li>
-      </ul>
-
-      <!-- ✅ ปุ่ม Add Game -->
-      <button class="add-btn"  [routerLink]="['/a_addgame']">
-        <i class="fa fa-plus"></i> Add Game
+    <!-- Search (ล็อคกลางจอใต้ Header) -->
+    <div class="search-bar">
+      <input
+        type="text"
+        placeholder="Search game..."
+        [(ngModel)]="searchText"
+      />
+      <button aria-label="Search" (click)="onSearch()">
+        <i class="fa fa-search"></i>
       </button>
-    </aside>
+    </div>
 
-    <!-- Content -->
-    <section class="content">
-      <div class="game-box">
-        <div class="game-list">
-          <div class="game-card" [routerLink]="['/a_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/a_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/a_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/a_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/a_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/a_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/a_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/a_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
+    <!-- Main Layout -->
+    <main class="main">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <ul>
+          <li>
+            <a
+              (click)="filterByCategory('All', $event)"
+              [class.active]="activeCategory === 'All'"
+            >
+              All Game (เกมทั้งหมด)
+            </a>
+          </li>
+          <li>
+            <a
+              (click)="filterByCategory('Action', $event)"
+              [class.active]="activeCategory === 'Action'"
+            >
+              Action (แอ็กชัน)
+            </a>
+          </li>
+          <li>
+            <a
+              (click)="filterByCategory('Adventure', $event)"
+              [class.active]="activeCategory === 'Adventure'"
+            >
+              Adventure (ผจญภัย)
+            </a>
+          </li>
+          <li>
+            <a
+              (click)="filterByCategory('RPG', $event)"
+              [class.active]="activeCategory === 'RPG'"
+            >
+              Role-Playing (RPG) (สวมบทบาท)
+            </a>
+          </li>
+          <li>
+            <a
+              (click)="filterByCategory('Sports', $event)"
+              [class.active]="activeCategory === 'Sports'"
+            >
+              Sports (กีฬา)
+            </a>
+          </li>
+          <li>
+            <a
+              (click)="filterByCategory('Puzzle/Strategy', $event)"
+              [class.active]="activeCategory === 'Puzzle/Strategy'"
+            >
+              Puzzle/Strategy (ปริศนา/กลยุทธ์)
+            </a>
+          </li>
+        </ul>
+
+        <!-- ✅ ปุ่ม Add Game -->
+        <button class="add-btn" [routerLink]="['/a_addgame']">
+          <i class="fa fa-plus"></i> Add Game
+        </button>
+      </aside>
+
+      <!-- Content -->
+      <section class="content">
+        <div class="game-box">
+          <div class="game-list">
+            <div
+              class="game-card"
+              *ngFor="let g of filteredGames"
+              [routerLink]="['/a_details', g.gid]"
+            >
+              <img
+                [src]="
+                  g.image_url ||
+                  'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+                "
+                [alt]="g.title"
+              />
+              <p class="game-title">{{ g.title }}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
-</body>
+      </section>
+    </main>
+  </body>
 </html>

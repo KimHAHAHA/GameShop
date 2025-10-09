@@ -1,50 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KIMKY STORE - Add Game</title>
-</head>
-<body>
-  <app-header></app-header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KIMKY STORE - Add Game</title>
+  </head>
+  <body>
+    <app-header-admin></app-header-admin>
 
-  <main class="container">
-    <div class="edit-card">
-      <div class="image-section">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/en/9/9d/God_of_War_Ragnar%C3%B6k_cover.jpg"
-          alt="God of War"
-        />
-        <label class="btn-upload">
-        + รูปภาพ
-        <input type="file" (change)="onImageSelected($event)" accept="image/*" hidden />
-      </label>
+    <main class="container">
+      <div class="edit-card">
+        <div class="image-section">
+          <img
+            *ngIf="previewUrl; else defaultImage"
+            [src]="previewUrl"
+            alt="Game Preview"
+          />
+
+          <!-- 🔹 ถ้ายังไม่เลือกรูป ให้แสดงภาพเริ่มต้น -->
+          <ng-template #defaultImage>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/9/9d/God_of_War_Ragnar%C3%B6k_cover.jpg"
+              alt="image"
+            />
+          </ng-template>
+
+          <!-- 🔹 ปุ่มอัปโหลด -->
+          <label class="btn-upload">
+            + รูปภาพ
+            <input
+              type="file"
+              (change)="onImageSelected($event)"
+              accept="image/*"
+              hidden
+            />
+          </label>
+        </div>
+
+        <form class="form-section" (ngSubmit)="onSubmit()">
+          <h2>Add Game</h2>
+
+          <label for="name">ชื่อเกม</label>
+          <input
+            type="text"
+            id="name"
+            [(ngModel)]="title"
+            name="title"
+            placeholder="เช่น God of War"
+            required
+          />
+
+          <label for="price">ราคา</label>
+          <input
+            type="number"
+            id="price"
+            [(ngModel)]="price"
+            name="price"
+            placeholder="เช่น 1000"
+            required
+          />
+
+          <label for="type">ประเภท</label>
+          <select id="type" [(ngModel)]="category" name="category" required>
+            <option>Action</option>
+            <option>Adventure</option>
+            <option>RPG</option>
+            <option>Shooter</option>
+            <option>Sports</option>
+          </select>
+
+          <label for="detail">รายละเอียด</label>
+          <input
+            type="text"
+            id="detail"
+            [(ngModel)]="description"
+            name="description"
+          />
+
+          <button type="submit" class="btn-confirm" [disabled]="isLoading">
+            {{ isLoading ? "⏳ กำลังบันทึก..." : "ยืนยันเพิ่มเกม" }}
+          </button>
+        </form>
       </div>
-
-      <form class="form-section">
-        <h2>God of War</h2>
-
-        <label for="name">ชื่อเกม</label>
-        <input type="text" id="name" value="God of War" />
-
-        <label for="price">ราคา</label>
-        <input type="number" id="price" value="1000" />
-
-        <label for="type">ประเภท</label>
-        <select id="type">
-          <option>Action</option>
-          <option>Adventure</option>
-          <option>RPG</option>
-          <option>Shooter</option>
-          <option>Sports</option>
-        </select>
-
-        <label for="detail">รายละเอียด</label>
-        <input type="text" id="detail" value="เกมต่อสู้" />
-
-        <button type="submit" class="btn-confirm"   [routerLink]="['/a_home']">Confirm</button>
-      </form>
-    </div>
-  </main>
-</body>
+    </main>
+  </body>
 </html>

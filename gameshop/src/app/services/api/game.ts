@@ -94,4 +94,58 @@ export class Game {
 
     return result;
   }
+
+  public async addGame(formData: FormData): Promise<any> {
+    const url = this.constants.API_ENDPOINT + '/game';
+    const response = await lastValueFrom(this.http.post(url, formData));
+    return response;
+  }
+
+  public async getAllGames(): Promise<any[]> {
+    const url = this.constants.API_ENDPOINT + '/game';
+    const response = await lastValueFrom(this.http.get(url));
+    return response as any[];
+  }
+
+  public async getGameById(id: string): Promise<any> {
+    const url = this.constants.API_ENDPOINT + `/game/${id}`;
+    const response = await lastValueFrom(this.http.get(url));
+    return response;
+  }
+
+  public async updateGame(id: string, formData: FormData): Promise<any> {
+    const url = this.constants.API_ENDPOINT + `/game/${id}`;
+    const response = await lastValueFrom(this.http.put(url, formData));
+    return response;
+  }
+
+  public async searchGames(query: string): Promise<any[]> {
+    const url = `${
+      this.constants.API_ENDPOINT
+    }/game/search?q=${encodeURIComponent(query)}`;
+    const response = await lastValueFrom(this.http.get(url));
+    return response as any[];
+  }
+
+  public async getBalance(uid: number): Promise<number> {
+    const url = `${this.constants.API_ENDPOINT}/users/${uid}`;
+    const response: any = await lastValueFrom(this.http.get(url));
+    return response.wallet_balance ?? 0;
+  }
+
+  // ✅ เติมเงิน
+  public async topup(uid: number, amount: number): Promise<any> {
+    const body = { uid, amount };
+    const response = await lastValueFrom(
+      this.http.post(`${this.constants.API_ENDPOINT}/users/topup`, body)
+    );
+    return response;
+  }
+
+  // ✅ ดึงประวัติการทำรายการ
+  public async getTransactions(uid: number): Promise<any[]> {
+    const url = `${this.constants.API_ENDPOINT}/transactions/${uid}`;
+    const response: any = await lastValueFrom(this.http.get(url));
+    return response.history ?? []; // ✅ ดึงเฉพาะ history
+  }
 }
