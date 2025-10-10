@@ -1,52 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KIMKY STORE - Labrary</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-  <app-header></app-header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KIMKY STORE - Labrary</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <app-header></app-header>
 
-  <!-- Main Layout -->
-  <main class="main">
-    <section class="content">
-      <!-- ส่วนหัว: ช่องค้นหา + ชื่อหัวข้อ -->
-      <div class="top-header">
-        <h2>Library</h2>
-      </div>
+    <!-- Main Layout -->
+    <main class="main">
+      <section class="content">
+        <div class="top-header">
+          <h2>🎮 Library</h2>
+        </div>
 
-      <!-- กล่องเกม -->
-      <div class="game-box">
-        <div class="game-list">
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
+        <div *ngIf="isLoading" class="loading">กำลังโหลด...</div>
+
+        <div *ngIf="!isLoading && library.length === 0" class="empty">
+          ยังไม่มีเกมในคลังของคุณ
+        </div>
+
+        <div class="game-box" *ngIf="library.length > 0">
+          <div class="game-list">
+            <div
+              class="game-card"
+              *ngFor="let g of library"
+              [routerLink]="['/u_details', g.gid]"
+            >
+              <img
+                [src]="
+                  g.image_url ||
+                  'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+                "
+                [alt]="g.title"
+              />
+              <p class="title">{{ g.title }}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
-</body>
+      </section>
+    </main>
+  </body>
 </html>

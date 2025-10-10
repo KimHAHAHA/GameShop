@@ -197,4 +197,11 @@ export class Game {
     const res: any = await lastValueFrom(this.http.post(url, {}));
     return res;
   }
+
+  // ✅ ดึงรายชื่อเกมที่ผู้ใช้ซื้อแล้ว
+  public async getUserLibrary(uid: number): Promise<any[]> {
+    const url = `${this.constants.API_ENDPOINT}/game/${uid}`;
+    const response: any = await lastValueFrom(this.http.get(url));
+    return response || [];
+  }
 }
