@@ -200,7 +200,7 @@ export class Game {
 
   // ✅ ดึงรายชื่อเกมที่ผู้ใช้ซื้อแล้ว
   public async getUserLibrary(uid: number): Promise<any[]> {
-    const url = `${this.constants.API_ENDPOINT}/game/${uid}`;
+    const url = `${this.constants.API_ENDPOINT}/game/library/${uid}`;
     const response: any = await lastValueFrom(this.http.get(url));
     return response || [];
   }
