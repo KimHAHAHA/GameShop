@@ -43,6 +43,7 @@ export const routes: Routes = [
   { path: 'a_details/:id', component: ADetails, canActivate: [AuthGuard] },
   { path: 'a_editgame/:id', component: AEditgame, canActivate: [AuthGuard] },
   { path: 'a_details', component: ADetails, canActivate: [AuthGuard] },
+  { path: 'a_history/:uid', component: AHistory, canActivate: [AuthGuard] },
   { path: 'a_addgame', component: AAddgame, canActivate: [AuthGuard] },
   { path: 'a_editgame', component: AEditgame, canActivate: [AuthGuard] },
   { path: 'a_code', component: ACode, canActivate: [AuthGuard] },

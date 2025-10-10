@@ -1,35 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KIMKY STORE - Store</title>
-</head>
-<body>
-  <app-header></app-header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KIMKY STORE - Store</title>
+  </head>
+  <body>
+    <app-header></app-header>
 
-  <main class="container">
-    <h2>Store</h2>
+    <main class="container">
+      <h2>🛒 My Cart</h2>
 
-    <div class="game-list">
-      <div class="game-card">
-        <div class="info">
-          <p class="title">God of War</p>
-          <img src="https://upload.wikimedia.org/wikipedia/en/a/a7/God_of_War_4_cover.jpg" alt="God of War">
-        </div>
-        <button class="delete-btn">✖</button>
+      <!-- โหลดอยู่ -->
+      <div *ngIf="isLoading" class="loading">กำลังโหลด...</div>
+
+      <!-- ถ้าไม่มีเกม -->
+      <div *ngIf="!isLoading && cart.length === 0" class="empty">
+        ไม่มีเกมในตะกร้า
       </div>
 
-      <div class="game-card">
-        <div class="info">
-          <p class="title">GTA</p>
-          <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA">
+      <!-- รายการเกม -->
+      <div class="game-list" *ngIf="cart.length > 0">
+        <div class="game-card" *ngFor="let g of cart">
+          <div class="info">
+            <p class="title">{{ g.title }}</p>
+            <img
+              [src]="
+                g.image_url ||
+                'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+              "
+              [alt]="g.title"
+            />
+          </div>
+          <button class="delete-btn" (click)="removeFromCart(g.gid)">✖</button>
         </div>
-        <button class="delete-btn">✖</button>
       </div>
-    </div>
 
-    <button class="buy-btn">BUY</button>
-  </main>
-</body>
+      <!-- รวมราคา + ปุ่มซื้อ -->
+      <div *ngIf="cart.length > 0" class="cart-footer">
+        <p>
+          รวมทั้งหมด: <strong>{{ totalPrice | currency : "THB" }}</strong>
+        </p>
+        <button class="buy-btn" (click)="checkout()" [disabled]="isLoading">
+          {{ isLoading ? "⏳ กำลังดำเนินการ..." : "BUY" }}
+        </button>
+      </div>
+    </main>
+  </body>
 </html>

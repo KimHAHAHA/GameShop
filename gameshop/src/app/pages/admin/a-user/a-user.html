@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="th">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KIMKY STORE - User</title>
-</head>
-<body>
-  <app-header-admin></app-header-admin>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KIMKY STORE - User</title>
+  </head>
+  <body>
+    <app-header-admin></app-header-admin>
 
-  <main class="container">
-    <h2>User</h2>
+    <main class="container">
+      <h2>รายชื่อผู้ใช้</h2>
 
-    <div class="user-list">
-      <div class="user-card">
-        <p><strong>นายเก่ง</strong></p>
-        <button class="history-btn" [routerLink]="['/a_history']" >History</button>
+      <div *ngIf="isLoading" class="loading">⏳ กำลังโหลดข้อมูล...</div>
+
+      <div *ngIf="!isLoading && users.length === 0" class="empty">
+        ❌ ไม่พบผู้ใช้ในระบบ
       </div>
 
-      <div class="user-card">
-        <p><strong>นายเอก</strong></p>
-        <button class="history-btn" [routerLink]="['/a_history']" >History</button>
-      </div>
+      <div class="user-list" *ngIf="!isLoading && users.length > 0">
+        <div class="user-card" *ngFor="let u of users">
+          <p>
+            <strong>{{ u.name }}</strong>
+          </p>
+          <p class="email">{{ u.email }}</p>
+          <p class="balance">
+            💰 {{ u.wallet_balance | number : "1.0-2" }} THB
+          </p>
 
-      <div class="user-card">
-        <p><strong>นางสาวขม</strong></p>
-        <button class="history-btn" [routerLink]="['/a_history']" >History</button>
+          <button class="history-btn" [routerLink]="['/a_history', u.uid]">
+            ดูประวัติ
+          </button>
+        </div>
       </div>
-
-      <div class="user-card">
-        <p><strong>ยายบักเอก</strong></p>
-        <button class="history-btn" [routerLink]="['/a_history']" >History</button>
-      </div>
-    </div>
-  </main>
-</body>
+    </main>
+  </body>
 </html>

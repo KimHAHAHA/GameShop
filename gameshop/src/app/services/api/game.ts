@@ -148,4 +148,53 @@ export class Game {
     const response: any = await lastValueFrom(this.http.get(url));
     return response.history ?? []; // ✅ ดึงเฉพาะ history
   }
+
+  public async getUserTransactions1(uid: number): Promise<any> {
+    const url = `${this.constants.API_ENDPOINT}/transactions/admin/${uid}`;
+    const response = await lastValueFrom(this.http.get(url));
+    return response;
+  }
+
+  public async getAllUsers(): Promise<any[]> {
+    const url = `${this.constants.API_ENDPOINT}/users/all`;
+    const response = await lastValueFrom(this.http.get(url));
+    return response as any[];
+  }
+
+  // ✅ ซื้อเกม
+  public async purchaseGame(user_id: number, game_id: number): Promise<any> {
+    const body = { user_id, game_id };
+    const url = `${this.constants.API_ENDPOINT}/game/purchase`;
+    const response = await lastValueFrom(this.http.post(url, body));
+    return response;
+  }
+
+  // ✅ เพิ่มเกมลงตะกร้า
+  public async addToCart(user_id: number, game_id: number): Promise<any> {
+    const body = { user_id, game_id };
+    const url = `${this.constants.API_ENDPOINT}/cart_items`;
+    const response = await lastValueFrom(this.http.post(url, body));
+    return response;
+  }
+
+  // ✅ ดึงเกมในตะกร้า
+  public async getCart(uid: number): Promise<any[]> {
+    const url = `${this.constants.API_ENDPOINT}/cart_items/${uid}`;
+    const res: any = await lastValueFrom(this.http.get(url));
+    return res || [];
+  }
+
+  // ✅ ลบเกมออกจากตะกร้า
+  public async removeFromCart(uid: number, gameId: number): Promise<any> {
+    const url = `${this.constants.API_ENDPOINT}/cart_items/${uid}/${gameId}`;
+    const res: any = await lastValueFrom(this.http.delete(url));
+    return res;
+  }
+
+  // ✅ Checkout (ซื้อทุกเกมในตะกร้า)
+  public async checkout(uid: number): Promise<any> {
+    const url = `${this.constants.API_ENDPOINT}/cart_items/checkout/${uid}`;
+    const res: any = await lastValueFrom(this.http.post(url, {}));
+    return res;
+  }
 }

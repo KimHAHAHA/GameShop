@@ -8,7 +8,6 @@
   <body>
     <app-header></app-header>
 
-    <!-- Main Game Section -->
     <main class="container">
       <div class="game-card">
         <img
@@ -30,41 +29,50 @@
           <p><strong>รายละเอียด:</strong> {{ game.description }}</p>
 
           <div class="btn-group">
-            <button class="btn-buy" id="buyBtn">BUY</button>
-            <button class="btn-add">+</button>
+            <button class="btn-buy" (click)="onBuy()">BUY</button>
+            <button class="btn-add" (click)="onAddToCart()">+</button>
           </div>
         </div>
       </div>
     </main>
 
     <!-- Popup -->
-    <div class="popup-overlay" id="popup">
-      <div class="popup-box">
-        <h3>BUY</h3>
-        <p class="price">ราคา: <span>1000 THB</span></p>
+    <div
+      class="popup-overlay"
+      *ngIf="showPopup"
+      style="
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      "
+    >
+      <div
+        class="popup-box"
+        style="
+          background: #111;
+          color: #fff;
+          padding: 20px;
+          border-radius: 8px;
+          border: 1px solid #00ffff;
+          min-width: 300px;
+        "
+      >
+        <h3>ยืนยันการซื้อ</h3>
+        <p class="price">
+          ราคา: <span>{{ game.price | currency : "THB" }}</span>
+        </p>
 
-        <label for="code">Code:</label>
-        <input type="text" id="code" placeholder="กรอกรหัสโค้ดที่นี่" />
-
-        <div class="popup-btns">
-          <button class="btn-cancel" id="cancelBtn">Cancel</button>
-          <button class="btn-confirm">Confirm</button>
+        <div class="popup-btns" style="margin-top: 15px; text-align: right">
+          <button (click)="closePopup()" style="margin-right: 10px">
+            Cancel
+          </button>
+          <button (click)="confirmPurchase()">Confirm</button>
         </div>
       </div>
     </div>
-
-    <script>
-      const popup = document.getElementById("popup");
-      const buyBtn = document.getElementById("buyBtn");
-      const cancelBtn = document.getElementById("cancelBtn");
-
-      buyBtn.addEventListener("click", () => {
-        popup.classList.add("show");
-      });
-
-      cancelBtn.addEventListener("click", () => {
-        popup.classList.remove("show");
-      });
-    </script>
   </body>
 </html>
