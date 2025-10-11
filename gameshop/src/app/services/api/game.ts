@@ -211,4 +211,15 @@ export class Game {
       : `${this.constants.API_ENDPOINT}/game/top`;
     return await lastValueFrom(this.http.get(url));
   }
+
+  async getAllCodes() {
+    const url = `${this.constants.API_ENDPOINT}/discount_codes`;
+    return await lastValueFrom(this.http.get(url));
+  }
+
+  // ✅ สร้างโค้ดใหม่
+  async createCode(payload: any) {
+    const url = `${this.constants.API_ENDPOINT}/discount_codes`;
+    return await lastValueFrom(this.http.post(url, payload));
+  }
 }
