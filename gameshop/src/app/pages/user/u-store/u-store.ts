@@ -3,6 +3,8 @@ import { Header } from '../../../components/header/header';
 import { CommonModule } from '@angular/common';
 import { Game } from '../../../services/api/game';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-u-store',
@@ -14,13 +16,16 @@ import { FormsModule } from '@angular/forms';
 export class UStore {
   cart: any[] = [];
   totalPrice = 0;
+  discountedPrice = 0;
+  discountPercent = 0;
+  discountCode = '';
+
   isLoading = false;
-
-  // ✅ สำหรับ popup
   showPopup = false;
-  discountCode: string = '';
 
-  constructor(private gameService: Game) {}
+  apiUrl = 'https://kimky-shop-backend.onrender.com';
+
+  constructor(private gameService: Game, private http: HttpClient) {}
 
   async ngOnInit() {
     await this.loadCart();
@@ -39,6 +44,7 @@ export class UStore {
         (sum, g) => sum + Number(g.price || 0),
         0
       );
+      this.discountedPrice = this.totalPrice;
     } catch (err) {
       console.error('❌ โหลดตะกร้าล้มเหลว:', err);
       alert('เกิดข้อผิดพลาดในการโหลดข้อมูลตะกร้า');
@@ -61,6 +67,7 @@ export class UStore {
         (sum, g) => sum + Number(g.price || 0),
         0
       );
+      this.discountedPrice = this.totalPrice;
     } catch (err) {
       console.error('❌ ลบเกมล้มเหลว:', err);
       alert('เกิดข้อผิดพลาดในการลบเกม');
@@ -75,9 +82,39 @@ export class UStore {
   // ✅ ปิด popup
   closePopup() {
     this.showPopup = false;
+    this.discountCode = '';
+    this.discountPercent = 0;
+    this.discountedPrice = this.totalPrice;
   }
 
-  // ✅ ยืนยันการซื้อ
+  // ✅ ตรวจสอบโค้ดส่วนลด
+  async applyDiscount() {
+    if (!this.discountCode.trim()) {
+      alert('กรุณากรอกโค้ดส่วนลด');
+      return;
+    }
+
+    try {
+      const res: any = await lastValueFrom(
+        this.http.post(`${this.apiUrl}/discount_codes/check`, {
+          code: this.discountCode.trim(),
+        })
+      );
+
+      this.discountPercent = Number(res.discount_percent);
+      const discountAmount = (this.totalPrice * this.discountPercent) / 100;
+      this.discountedPrice = this.totalPrice - discountAmount;
+
+      alert(`✅ ใช้โค้ดสำเร็จ ลด ${this.discountPercent}%`);
+    } catch (err: any) {
+      console.error('❌ โค้ดไม่ถูกต้อง:', err);
+      alert(err.error?.message || '❌ โค้ดไม่ถูกต้องหรือหมดอายุ');
+      this.discountPercent = 0;
+      this.discountedPrice = this.totalPrice;
+    }
+  }
+
+  // ✅ ยืนยันการซื้อ (ส่งโค้ดส่วนลดไป backend)
   async confirmCheckout() {
     const user = this.gameService.getUser();
     if (!user) return alert('กรุณาเข้าสู่ระบบก่อน');
@@ -85,20 +122,15 @@ export class UStore {
     try {
       this.isLoading = true;
 
-      if (this.discountCode) {
-        console.log('ใช้โค้ดส่วนลด:', this.discountCode);
-      }
-
-      // ถ้า backend ยังไม่รองรับ discountCode ให้เอาพารามิเตอร์ออก
-      const res: any = await this.gameService.checkout(
-        user.uid
-        // this.discountCode  ❌ ถ้า backend รองรับ ให้เพิ่มได้
+      const res: any = await lastValueFrom(
+        this.http.post(`${this.apiUrl}/cart_items/checkout/${user.uid}`, {
+          discount_code: this.discountCode.trim(),
+        })
       );
 
       alert(res.message || '✅ ซื้อเกมทั้งหมดสำเร็จ');
       this.showPopup = false;
-      this.cart = [];
-      this.totalPrice = 0;
+      await this.loadCart();
     } catch (err: any) {
       console.error('❌ Checkout Error:', err);
       alert(err.error?.message || 'เกิดข้อผิดพลาดในการชำระเงิน');

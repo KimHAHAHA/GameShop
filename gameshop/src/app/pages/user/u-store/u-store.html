@@ -48,6 +48,7 @@
     </main>
 
     <!-- Popup -->
+    <!-- Popup -->
     <div
       class="popup-overlay"
       *ngIf="showPopup"
@@ -73,11 +74,16 @@
           box-shadow: 0 0 12px rgba(0, 255, 195, 0.4);
         "
       >
-        <h3 style="text-align: center; margin-top: 1rem;">ยืนยันการซื้อ</h3>
+        <h3 style="text-align: center; margin-top: 1rem">ยืนยันการซื้อ</h3>
 
         <p class="price" style="margin-bottom: 8px">
-          รวมทั้งหมด:
-          <span>{{ totalPrice | currency : "THB" }}</span>
+          รวมทั้งหมด: <span>{{ totalPrice | currency : "THB" }}</span>
+        </p>
+
+        <p *ngIf="discountPercent > 0" style="color: #00ffc3">
+          🎉 ราคาหลังลด:
+          <strong>{{ discountedPrice | currency : "THB" }}</strong> (ลด
+          {{ discountPercent }}%)
         </p>
 
         <!-- ช่องกรอกโค้ดส่วนลด -->
@@ -103,6 +109,21 @@
               outline: none;
             "
           />
+          <button
+            (click)="applyDiscount()"
+            style="
+              margin-top: 8px;
+              background: #00ffc3;
+              color: #000;
+              border: none;
+              padding: 6px 12px;
+              border-radius: 5px;
+              cursor: pointer;
+              font-weight: 600;
+            "
+          >
+            ใช้โค้ด
+          </button>
         </div>
 
         <div
@@ -112,7 +133,7 @@
             text-align: right;
             display: flex;
             justify-content: center;
-    gap: 12px; 
+            gap: 12px;
           "
         >
           <button
@@ -124,7 +145,6 @@
               padding: 8px 14px;
               border-radius: 5px;
               cursor: pointer;
-              margin-right: 10px;
             "
           >
             Cancel

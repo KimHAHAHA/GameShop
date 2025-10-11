@@ -162,8 +162,17 @@ export class Game {
   }
 
   // ✅ ซื้อเกม
-  public async purchaseGame(user_id: number, game_id: number): Promise<any> {
-    const body = { user_id, game_id };
+  public async purchaseGame(
+    user_id: number,
+    game_id: number,
+    price?: number // ✅ เพิ่มพารามิเตอร์ optional
+  ): Promise<any> {
+    // ✅ ส่งข้อมูลราคาไปด้วยถ้ามี
+    const body: any = { user_id, game_id };
+    if (price !== undefined) {
+      body.price = price;
+    }
+
     const url = `${this.constants.API_ENDPOINT}/game/purchase`;
     const response = await lastValueFrom(this.http.post(url, body));
     return response;
@@ -192,10 +201,9 @@ export class Game {
   }
 
   // ✅ Checkout (ซื้อทุกเกมในตะกร้า)
-  public async checkout(uid: number): Promise<any> {
-    const url = `${this.constants.API_ENDPOINT}/cart_items/checkout/${uid}`;
-    const res: any = await lastValueFrom(this.http.post(url, {}));
-    return res;
+  async checkout(user_id: number, discount_code?: string) {
+    const url = `${this.constants.API_ENDPOINT}/cart_items/checkout/${user_id}`;
+    return await lastValueFrom(this.http.post(url, { discount_code }));
   }
 
   // ✅ ดึงรายชื่อเกมที่ผู้ใช้ซื้อแล้ว
@@ -221,5 +229,14 @@ export class Game {
   async createCode(payload: any) {
     const url = `${this.constants.API_ENDPOINT}/discount_codes`;
     return await lastValueFrom(this.http.post(url, payload));
+  }
+
+  async checkDiscountCode(code: string) {
+    return await lastValueFrom(
+      this.http.post(
+        'https://kimky-shop-backend.onrender.com/discount_codes/check',
+        { code }
+      )
+    );
   }
 }
