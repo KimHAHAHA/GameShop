@@ -116,12 +116,7 @@ body {
   transition: 0.25s;
   gap: 10px;
 
-  &:hover {
-    background-color: darken(#ff0000, 10%);
-    color: #000;
-    transform: translateY(-2px);
-    box-shadow: 0 0 10px rgba($accent, 0.4);
-  }
+
 }
 
 /* ---------- 🔳 กลุ่มปุ่ม ---------- */
@@ -186,9 +181,6 @@ body {
   cursor: pointer;
   transition: 0.2s;
 
-  &:hover {
-    background: lighten($accent, 10%);
-  }
 }
 
 /* ---------- ✨ เอฟเฟกต์แอนิเมชัน ---------- */

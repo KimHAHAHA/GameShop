@@ -50,7 +50,6 @@ export class ADetails {
   // 🔹 ยืนยันการลบเกม
   async confirmDelete() {
     if (!this.game?.gid) return;
-    if (!confirm(`ต้องการลบ "${this.game.title}" ใช่ไหม?`)) return;
 
     this.isDeleting = true;
     try {
