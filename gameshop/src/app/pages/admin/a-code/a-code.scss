@@ -1,3 +1,4 @@
+/* ---------- 🎨 พื้นฐาน ---------- */
 body {
   background-color: #0d0d0d;
   color: #fff;
@@ -6,7 +7,7 @@ body {
   padding: 0;
 }
 
-/* Header */
+/* ---------- 🧭 Header ---------- */
 .header {
   display: flex;
   justify-content: space-between;
@@ -31,7 +32,8 @@ body {
       cursor: pointer;
       transition: 0.3s;
 
-      &:hover, &.active {
+      &:hover,
+      &.active {
         background-color: #00fff2;
         color: #000;
       }
@@ -39,7 +41,7 @@ body {
   }
 }
 
-/* Main Container */
+/* ---------- 📦 Main Container ---------- */
 .container {
   text-align: center;
   padding: 40px;
@@ -51,30 +53,84 @@ body {
   }
 
   .code-box {
-    border: 2px solid #00fff2;
-    border-radius: 10px;
-    padding: 20px 40px;
-    display: inline-block;
-    text-align: left;
-    margin-bottom: 40px;
+  border: 2px solid #00fff2;
+  border-radius: 10px;
+  padding: 15px 25px; // 🔹 ลด padding รอบกล่อง
+  display: inline-block;
+  text-align: left;
+  margin-bottom: 30px;
+  min-width: 360px; // 🔹 ปรับให้แคบลงเล็กน้อย
+  background-color: #0e0e0e;
 
-    .code-item {
+  .code-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px; // 🔹 ลดขนาดตัวอักษร
+    margin: 6px 0;   // 🔹 ลดระยะห่างระหว่างแต่ละแถว
+    padding: 4px 0;  // 🔹 ลดระยะขอบบน–ล่าง
+    border-bottom: 1px solid rgba(0, 255, 242, 0.15);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .code-name {
+      flex: 1;
+      font-weight: 600;
+    }
+
+    .code-info {
+      flex-shrink: 0;
+      font-weight: 500;
+      margin-right: 10px; // 🔹 ลดช่องว่าง
+      color: #ccc;
+      font-size: 14px; // 🔹 ขนาดเล็กลงเล็กน้อย
+
+      small {
+        color: #00fff2;
+        font-size: 13px;
+      }
+    }
+
+    .code-actions {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 18px;
-      margin: 10px 0;
+      gap: 6px; // 🔹 ระยะระหว่างไอคอนลดลง
+      font-size: 0.9rem;
 
-      p {
-        margin: 0;
+      button {
+        background: transparent;
+        border: none;
+        color: #00fff2;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:hover {
+          transform: scale(1.1);
+        }
       }
 
-      span {
-        font-weight: 500;
+      .btn-edit:hover {
+        color: #00ff99;
+      }
+
+      .btn-delete:hover {
+        color: #ff4444;
       }
     }
   }
+}
 
+    .no-code {
+      text-align: center;
+      color: #bbb;
+      font-style: italic;
+      margin-top: 10px;
+    }
+  }
+
+  /* ---------- 🧾 ฟอร์มสร้างโค้ด ---------- */
   h3 {
     font-size: 20px;
     margin-bottom: 15px;
@@ -127,6 +183,25 @@ body {
       &:hover {
         background-color: #00fff2;
         color: #000;
+      }
+    }
+  }
+
+
+/* ---------- 📱 Responsive ---------- */
+@media (max-width: 768px) {
+  .container {
+    .code-box {
+      width: 100%;
+      padding: 20px;
+    }
+
+    .create-form {
+      flex-direction: column;
+      align-items: center;
+
+      .input-group input {
+        width: 250px;
       }
     }
   }

@@ -4,32 +4,163 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KIMKY STORE - Code</title>
+
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- ✅ Popup Style (ฝังในหน้า) -->
+    <style>
+      .popup-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        animation: fadeIn 0.2s ease-out;
+      }
+
+      .popup-box {
+        background: #0e0e0e;
+        border: 2px solid #00fff2;
+        border-radius: 12px;
+        padding: 25px 30px;
+        width: 360px;
+        color: white;
+        text-align: left;
+        box-shadow: 0 0 15px rgba(0, 255, 242, 0.3);
+        animation: popupIn 0.25s ease-out;
+      }
+
+      .popup-box h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        text-align: center;
+        color: #00fff2;
+      }
+
+      .popup-box label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
+      }
+
+      .popup-box input {
+        width: 100%;
+        padding: 8px 10px;
+        margin-bottom: 12px;
+        border: 2px solid #00fff2;
+        border-radius: 8px;
+        background: transparent;
+        color: white;
+        outline: none;
+      }
+
+      .popup-box .popup-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .popup-box button {
+        padding: 8px 14px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.2s;
+      }
+
+      .btn-cancel {
+        background: #444;
+        color: #fff;
+      }
+
+      .btn-cancel:hover {
+        background: #666;
+      }
+
+      .btn-save {
+        background: #00fff2;
+        color: #000;
+      }
+
+      .btn-save:hover {
+        background: #00e6d2;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes popupIn {
+        from {
+          transform: scale(0.9);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
   </head>
+
   <body>
     <app-header-admin></app-header-admin>
 
     <main class="container">
-      <h2>Code</h2>
+      <h2>Code Management</h2>
 
       <!-- ✅ แสดงรายการโค้ด -->
       <div class="code-box">
         <div class="code-item" *ngFor="let c of codes">
-          <p>
-            <strong>{{ c.code }} -----</strong>
+          <p class="code-name">
+            <strong>{{ c.code }}</strong>
           </p>
-          <span> {{ c.used_count }}/{{ c.max_use }}-----</span>
-          <small> {{ c.discount_percent }}% OFF</small>
+
+          <span class="code-info">
+            {{ c.used_count }}/{{ c.max_use }}
+            <small>({{ c.discount_percent }}% OFF)</small>
+          </span>
+
+          <!-- ปุ่มแก้ไข / ลบ -->
+          <div class="code-actions">
+            <button
+              class="btn-edit"
+              title="แก้ไขโค้ด"
+              (click)="openEditPopup(c)"
+            >
+              <i class="fa-solid fa-pen"></i>
+            </button>
+
+            <button
+              class="btn-delete"
+              title="ลบโค้ด"
+              (click)="deleteCode(c)"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
         </div>
 
-        <!-- ถ้าไม่มีโค้ด -->
         <p *ngIf="!codes || codes.length === 0" class="no-code">
           ยังไม่มีโค้ดในระบบ
         </p>
       </div>
 
       <!-- ✅ ฟอร์มสร้างโค้ด -->
-      <h3>Create Discount Code</h3>
-
+      <h3>Create New Code</h3>
       <form class="create-form" (submit)="createCode($event)">
         <div class="input-group">
           <label for="code">Code</label>
@@ -70,5 +201,41 @@
         <button type="submit" class="create-btn">Create</button>
       </form>
     </main>
+
+    <!-- ✅ Popup แก้ไขโค้ด -->
+    <div class="popup-overlay" *ngIf="showEditPopup">
+      <div class="popup-box">
+        <h3>Edit Code</h3>
+
+        <label for="editCode">Code</label>
+        <input
+          id="editCode"
+          type="text"
+          [(ngModel)]="editData.code"
+          placeholder="Enter code"
+        />
+
+        <label for="editDiscount">Discount (%)</label>
+        <input
+          id="editDiscount"
+          type="number"
+          [(ngModel)]="editData.discount_percent"
+          placeholder="Enter discount"
+        />
+
+        <label for="editMax">Max Use</label>
+        <input
+          id="editMax"
+          type="number"
+          [(ngModel)]="editData.max_use"
+          placeholder="Enter max use"
+        />
+
+        <div class="popup-actions">
+          <button class="btn-cancel" (click)="closeEditPopup()">Cancel</button>
+          <button class="btn-save" (click)="saveEdit()">Save</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

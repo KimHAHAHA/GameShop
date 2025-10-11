@@ -225,6 +225,18 @@ export class Game {
     return await lastValueFrom(this.http.get(url));
   }
 
+   /* ✅ อัปเดตโค้ด */
+  async updateCode(id: number, payload: any): Promise<any> {
+    const url = `${this.constants.API_ENDPOINT}/discount_codes/${id}`;
+    return await lastValueFrom(this.http.put(url, payload));
+  }
+
+  /* ✅ ลบโค้ด */
+  async deleteCode(id: number): Promise<any> {
+    const url = `${this.constants.API_ENDPOINT}/discount_codes/${id}`;
+    return await lastValueFrom(this.http.delete(url));
+  }
+
   // ✅ สร้างโค้ดใหม่
   async createCode(payload: any) {
     const url = `${this.constants.API_ENDPOINT}/discount_codes`;
