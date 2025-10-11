@@ -55,7 +55,7 @@ export class ADetails {
     try {
       const res: any = await this.gameService.deleteGame(this.game.gid);
       alert(res.message || '✅ ลบเกมสำเร็จ');
-      this.router.navigate(['/a_store']);
+      this.router.navigate(['/a_home']);
     } catch (err: any) {
       console.error('❌ ลบเกมไม่สำเร็จ:', err);
       alert(err.error?.message || 'เกิดข้อผิดพลาดในระบบ');
