@@ -8,30 +8,52 @@
   <body>
     <app-header-admin></app-header-admin>
 
-    <main class="container">
-      <div class="game-card">
-        <img
-          [src]="
-            game.image_url ||
-            'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
-          "
-          [alt]="game.title"
-        />
+<main class="container">
+  <div class="game-card">
+    <img
+      [src]="
+        game.image_url ||
+        'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+      "
+      [alt]="game.title"
+    />
 
-        <div class="game-info">
-          <h2>{{ game.title }}</h2>
-          <p><strong>ประเภท:</strong> {{ game.category }}</p>
-          <p><strong>ราคา:</strong> {{ game.price | currency : "THB" }}</p>
-          <p>
-            <strong>วันวางขาย:</strong>
-            {{ game.created_at | date : "dd/MM/yyyy" }}
-          </p>
-          <p><strong>รายละเอียด:</strong> {{ game.description }}</p>
-          <button class="btn-edit" [routerLink]="['/a_editgame', game.gid]">
-            Edit details
-          </button>
-        </div>
+    <div class="game-info">
+      <h2>{{ game.title }}</h2>
+      <p><strong>ประเภท:</strong> {{ game.category }}</p>
+      <p><strong>ราคา:</strong> {{ game.price | currency : 'THB' }}</p>
+      <p>
+        <strong>วันวางขาย:</strong>
+        {{ game.created_at | date : 'dd/MM/yyyy' }}
+      </p>
+      <p><strong>รายละเอียด:</strong> {{ game.description }}</p>
+
+      <!-- ปุ่มแก้ไข / ลบ -->
+      <div class="btn-group">
+        <button class="btn-edit" [routerLink]="['/a_editgame', game.gid]">
+          Edit details
+        </button>
+
+        <button class="btn-delete" (click)="openPopup()">
+          Delete Game
+        </button>
       </div>
-    </main>
+    </div>
+  </div>
+</main>
+
+<!-- ✅ Popup ยืนยันการลบ -->
+<div class="dialog-overlay" *ngIf="showPopup">
+  <div class="dialog-box">
+    <h3>ยืนยันการลบเกม</h3>
+    <p>คุณต้องการลบเกม "<strong>{{ game.title }}</strong>" หรือไม่?</p>
+
+    <div class="dialog-actions">
+      <button class="btn-cancel" (click)="closePopup()">ยกเลิก</button>
+      <button class="btn-confirm" (click)="confirmDelete()">ยืนยัน</button>
+    </div>
+  </div>
+</div>
+
   </body>
 </html>

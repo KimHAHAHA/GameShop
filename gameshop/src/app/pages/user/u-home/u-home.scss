@@ -15,7 +15,6 @@ html, body {
   background-color: $bg-color;
   color: $text-light;
   overflow-x: hidden;
-  overflow-y: scroll; /* ✅ ป้องกัน layout shift เมื่อ scrollbar หาย/ปรากฏ */
 }
 
 /* ---------- TITLE GAME ---------- */

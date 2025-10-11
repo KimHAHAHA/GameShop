@@ -1,8 +1,10 @@
+/* ---------- 🎨 ตัวแปรสี ---------- */
 $bg: #0c0c0c;
 $panel: #0e0e0e;
 $accent: #00fff0;
 $text: #ffffff;
 
+/* ---------- 🔤 พื้นฐาน ---------- */
 body {
   font-family: 'Poppins', sans-serif;
   background-color: $bg;
@@ -11,7 +13,7 @@ body {
   padding: 0;
 }
 
-/* ---------- Header ---------- */
+/* ---------- 🧭 Header ---------- */
 .header {
   background-color: #111;
   border-bottom: 3px solid $accent;
@@ -42,7 +44,7 @@ body {
   }
 }
 
-/* ---------- Layout ---------- */
+/* ---------- 📦 Layout ---------- */
 .container {
   display: flex;
   justify-content: center;
@@ -50,7 +52,7 @@ body {
   height: 85vh;
 }
 
-/* ---------- Game Card ---------- */
+/* ---------- 🎮 กล่องแสดงรายละเอียดเกม ---------- */
 .game-card {
   display: flex;
   align-items: flex-start;
@@ -79,29 +81,140 @@ body {
       font-weight: 500;
       line-height: 1.4;
     }
-
-    .btn-edit {
-      margin-top: 18px;
-      background: none;
-      color: $text;
-      border: 2px solid $accent;
-      border-radius: 8px;
-      padding: 9px 22px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.25s;
-
-      &:hover {
-        background-color: $accent;
-        color: #000;
-        transform: translateY(-2px);
-        box-shadow: 0 0 10px rgba($accent, 0.4);
-      }
-    }
   }
 }
 
-/* ---------- Responsive ---------- */
+/* ---------- 🔘 ปุ่ม Edit ---------- */
+.btn-edit {
+  background: none;
+  color: $text;
+  border: 2px solid $accent;
+  border-radius: 8px;
+  padding: 9px 22px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+  gap: 10px;
+
+  &:hover {
+    background-color: $accent;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba($accent, 0.4);
+  }
+}
+
+/* ---------- 🔴 ปุ่ม Delete ---------- */
+.btn-delete {
+  background: #ff0000;
+  color: #fff;
+  border: 2px solid $accent;
+  border-radius: 8px;
+  padding: 9px 22px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+  gap: 10px;
+
+  &:hover {
+    background-color: darken(#ff0000, 10%);
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba($accent, 0.4);
+  }
+}
+
+/* ---------- 🔳 กลุ่มปุ่ม ---------- */
+.btn-group {
+  display: flex;
+  align-items: center;
+  gap: 15px; // ✅ ระยะห่างระหว่างปุ่ม
+  margin-top: 20px;
+}
+
+/* ---------- 🪟 Popup ยืนยันการลบ ---------- */
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.dialog-box {
+  background: #111;
+  border: 2px solid $accent;
+  border-radius: 16px;
+  padding: 25px 30px;
+  color: #fff;
+  text-align: center;
+  width: 320px;
+  box-shadow: 0 0 20px #00ffc3;
+  animation: popupIn 0.25s ease-out;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn-cancel {
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background: #666;
+  }
+}
+
+.btn-confirm {
+  background: $accent;
+  color: #000;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background: lighten($accent, 10%);
+  }
+}
+
+/* ---------- ✨ เอฟเฟกต์แอนิเมชัน ---------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes popupIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- 📱 Responsive ---------- */
 @media (max-width: 768px) {
   .game-card {
     flex-direction: column;
