@@ -1,58 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KIMKY STORE - Top Game</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-  <app-header></app-header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KIMKY STORE - Top Game</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <app-header></app-header>
 
-  <!-- Main Layout -->
-  <main class="main">
-    <section class="content">
-      <!-- ส่วนหัว: ช่องค้นหา + ชื่อหัวข้อ -->
-      <div class="top-header">
-        <div class="search-tools">
-          <input type="date" class="date-input">
-          <button aria-label="Search"><i class="fa fa-search"></i></button>
+    <main class="main">
+      <section class="content">
+        <!-- ส่วนหัว -->
+        <div class="top-header">
+          <div class="search-tools">
+            <input type="date" class="date-input" [(ngModel)]="selectedDate" />
+            <button aria-label="Search" (click)="onSearchDate()">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+
+          <h2>Top Game</h2>
         </div>
 
-        <h2>Top Game</h2>
-      </div>
+        <!-- Loading -->
+        <div class="loading" *ngIf="isLoading">
+          <p>⏳ กำลังโหลด...</p>
+        </div>
 
-      <!-- กล่องเกม -->
-      <div class="game-box">
-        <div class="game-list">
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div>
-          <div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div><div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
-          </div><div class="game-card" [routerLink]="['/u_details']">
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA V">
+        <!-- แสดงเกม -->
+        <div class="game-box" *ngIf="!isLoading && topGames.length > 0">
+          <div class="game-list">
+            <div
+              class="game-card"
+              *ngFor="let g of topGames"
+              [routerLink]="['/u_details', g.gid]"
+            >
+              <div class="rank">{{ g.rank }}</div>
+              <img
+                [src]="
+                  g.image_url ||
+                  'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'
+                "
+                [alt]="g.title"
+              />
+              <div class="info">
+                <p class="title">{{ g.title }}</p>
+                <p class="sold">ขายแล้ว: {{ g.total_sold }} ครั้ง</p>
+                <p class="price">฿{{ g.price }}</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
-</body>
+
+        <!-- ไม่มีข้อมูล -->
+        <p class="no-data" *ngIf="!isLoading && topGames.length === 0">
+          ไม่พบข้อมูลยอดขาย
+        </p>
+      </section>
+    </main>
+  </body>
 </html>

@@ -204,4 +204,11 @@ export class Game {
     const response: any = await lastValueFrom(this.http.get(url));
     return response || [];
   }
+
+  async getTopGames(date?: string) {
+    const url = date
+      ? `${this.constants.API_ENDPOINT}/game/top?date=${date}`
+      : `${this.constants.API_ENDPOINT}/game/top`;
+    return await lastValueFrom(this.http.get(url));
+  }
 }
