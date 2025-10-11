@@ -8,12 +8,13 @@ import { CommonModule } from '@angular/common';
   selector: 'app-a-details',
   imports: [RouterLink, HeaderAdmin, CommonModule],
   templateUrl: './a-details.html',
-  styleUrl: './a-details.scss',
+  styleUrls: ['./a-details.scss'],
 })
 export class ADetails {
   game: any = null;
   isLoading = true;
   showPopup = false; // ✅ เพิ่มตัวแปร popup
+  isDeleting = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,15 +50,18 @@ export class ADetails {
   // 🔹 ยืนยันการลบเกม
   async confirmDelete() {
     if (!this.game?.gid) return;
+    if (!confirm(`ต้องการลบ "${this.game.title}" ใช่ไหม?`)) return;
 
+    this.isDeleting = true;
     try {
-      // await this.gameService.deleteGame(this.game.gid);
-      window.alert('✅ ลบเกมเรียบร้อยแล้ว');
+      const res: any = await this.gameService.deleteGame(this.game.gid);
+      alert(res.message || '✅ ลบเกมสำเร็จ');
       this.router.navigate(['/a_store']);
-    } catch (err) {
+    } catch (err: any) {
       console.error('❌ ลบเกมไม่สำเร็จ:', err);
-      window.alert('เกิดข้อผิดพลาดระหว่างการลบเกม');
+      alert(err.error?.message || 'เกิดข้อผิดพลาดในระบบ');
     } finally {
+      this.isDeleting = false;
       this.closePopup();
     }
   }

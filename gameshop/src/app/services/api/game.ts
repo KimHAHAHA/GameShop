@@ -239,4 +239,9 @@ export class Game {
       )
     );
   }
+
+  async deleteGame(id: number) {
+    const url = `${this.constants.API_ENDPOINT}/game/${id}`;
+    return await lastValueFrom(this.http.delete(url));
+  }
 }
