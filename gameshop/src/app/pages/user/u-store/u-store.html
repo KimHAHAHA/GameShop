@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KIMKY STORE - Store</title>
+    <title>KIMKY STORE - My Cart</title>
   </head>
   <body>
     <app-header></app-header>
@@ -46,5 +46,106 @@
         </button>
       </div>
     </main>
+
+    <!-- Popup -->
+    <div
+      class="popup-overlay"
+      *ngIf="showPopup"
+      style="
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      "
+    >
+      <div
+        class="popup-box"
+        style="
+          background: #111;
+          color: #fff;
+          padding: 20px;
+          border-radius: 8px;
+          border: 1px solid #00ffff;
+          min-width: 320px;
+          box-shadow: 0 0 12px rgba(0, 255, 195, 0.4);
+        "
+      >
+        <h3 style="text-align: center; margin-top: 1rem;">ยืนยันการซื้อ</h3>
+
+        <p class="price" style="margin-bottom: 8px">
+          รวมทั้งหมด:
+          <span>{{ totalPrice | currency : "THB" }}</span>
+        </p>
+
+        <!-- ช่องกรอกโค้ดส่วนลด -->
+        <div style="margin-top: 10px">
+          <label
+            for="discount"
+            style="display: block; margin-bottom: 6px; font-weight: 500"
+          >
+            โค้ดส่วนลด:
+          </label>
+          <input
+            id="discount"
+            type="text"
+            [(ngModel)]="discountCode"
+            placeholder="กรอกโค้ดส่วนลดที่นี่"
+            style="
+              width: 93%;
+              padding: 8px 10px;
+              border-radius: 6px;
+              border: 1px solid #00ffff;
+              background: #000;
+              color: #fff;
+              outline: none;
+            "
+          />
+        </div>
+
+        <div
+          class="popup-btns"
+          style="
+            margin-top: 20px;
+            text-align: right;
+            display: flex;
+            justify-content: center;
+    gap: 12px; 
+          "
+        >
+          <button
+            (click)="closePopup()"
+            style="
+              background: #444;
+              color: #fff;
+              border: none;
+              padding: 8px 14px;
+              border-radius: 5px;
+              cursor: pointer;
+              margin-right: 10px;
+            "
+          >
+            Cancel
+          </button>
+
+          <button
+            (click)="confirmCheckout()"
+            style="
+              background: #00ffc3;
+              color: #000;
+              border: none;
+              padding: 8px 14px;
+              border-radius: 5px;
+              cursor: pointer;
+              font-weight: 600;
+            "
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

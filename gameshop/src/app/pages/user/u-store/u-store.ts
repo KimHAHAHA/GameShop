@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Header } from '../../../components/header/header';
 import { CommonModule } from '@angular/common';
 import { Game } from '../../../services/api/game';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-u-store',
   standalone: true,
-  imports: [Header, CommonModule],
+  imports: [Header, CommonModule, FormsModule],
   templateUrl: './u-store.html',
   styleUrls: ['./u-store.scss'],
 })
@@ -15,12 +16,17 @@ export class UStore {
   totalPrice = 0;
   isLoading = false;
 
+  // ✅ สำหรับ popup
+  showPopup = false;
+  discountCode: string = '';
+
   constructor(private gameService: Game) {}
 
   async ngOnInit() {
     await this.loadCart();
   }
 
+  // ✅ โหลดข้อมูลตะกร้า
   async loadCart() {
     const user = this.gameService.getUser();
     if (!user) return alert('กรุณาเข้าสู่ระบบก่อน');
@@ -41,6 +47,7 @@ export class UStore {
     }
   }
 
+  // ✅ ลบเกมออกจากตะกร้า
   async removeFromCart(gameId: number) {
     const user = this.gameService.getUser();
     if (!user) return alert('กรุณาเข้าสู่ระบบก่อน');
@@ -60,16 +67,36 @@ export class UStore {
     }
   }
 
-  async checkout() {
+  // ✅ เปิด popup
+  checkout() {
+    this.showPopup = true;
+  }
+
+  // ✅ ปิด popup
+  closePopup() {
+    this.showPopup = false;
+  }
+
+  // ✅ ยืนยันการซื้อ
+  async confirmCheckout() {
     const user = this.gameService.getUser();
     if (!user) return alert('กรุณาเข้าสู่ระบบก่อน');
 
-    if (!confirm('ยืนยันการซื้อเกมทั้งหมดในตะกร้า?')) return;
-
     try {
       this.isLoading = true;
-      const res: any = await this.gameService.checkout(user.uid);
-      alert(res.message || '✅ ซื้อเกมสำเร็จ');
+
+      if (this.discountCode) {
+        console.log('ใช้โค้ดส่วนลด:', this.discountCode);
+      }
+
+      // ถ้า backend ยังไม่รองรับ discountCode ให้เอาพารามิเตอร์ออก
+      const res: any = await this.gameService.checkout(
+        user.uid
+        // this.discountCode  ❌ ถ้า backend รองรับ ให้เพิ่มได้
+      );
+
+      alert(res.message || '✅ ซื้อเกมทั้งหมดสำเร็จ');
+      this.showPopup = false;
       this.cart = [];
       this.totalPrice = 0;
     } catch (err: any) {

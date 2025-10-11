@@ -31,11 +31,10 @@
     <!-- Main Layout -->
     <main class="main">
       <!-- Sidebar -->
-      <aside class="sidebar">
+      <aside class="sidebar" [routerLink]="['/login']">
         <ul>
           <li>
             <a
-              (click)="filterByCategory('All', $event)"
               [class.active]="activeCategory === 'All'"
             >
               All Game (เกมทั้งหมด)
@@ -43,7 +42,6 @@
           </li>
           <li>
             <a
-              (click)="filterByCategory('Action', $event)"
               [class.active]="activeCategory === 'Action'"
             >
               Action (แอ็กชัน)
@@ -51,7 +49,6 @@
           </li>
           <li>
             <a
-              (click)="filterByCategory('Adventure', $event)"
               [class.active]="activeCategory === 'Adventure'"
             >
               Adventure (ผจญภัย)
@@ -59,7 +56,6 @@
           </li>
           <li>
             <a
-              (click)="filterByCategory('RPG', $event)"
               [class.active]="activeCategory === 'RPG'"
             >
               Role-Playing (RPG) (สวมบทบาท)
@@ -67,7 +63,6 @@
           </li>
           <li>
             <a
-              (click)="filterByCategory('Sports', $event)"
               [class.active]="activeCategory === 'Sports'"
             >
               Sports (กีฬา)
@@ -75,7 +70,6 @@
           </li>
           <li>
             <a
-              (click)="filterByCategory('Puzzle/Strategy', $event)"
               [class.active]="activeCategory === 'Puzzle/Strategy'"
             >
               Puzzle/Strategy (ปริศนา/กลยุทธ์)

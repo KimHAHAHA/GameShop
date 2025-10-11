@@ -21,10 +21,10 @@
         <div class="game-info">
           <h2>{{ game.title }}</h2>
           <p><strong>ประเภท:</strong> {{ game.category }}</p>
-          <p><strong>ราคา:</strong> {{ game.price | currency : "THB" }}</p>
+          <p><strong>ราคา:</strong> {{ game.price | currency : 'THB' }}</p>
           <p>
             <strong>วันวางขาย:</strong>
-            {{ game.created_at | date : "dd/MM/yyyy" }}
+            {{ game.created_at | date : 'dd/MM/yyyy' }}
           </p>
           <p><strong>รายละเอียด:</strong> {{ game.description }}</p>
 
@@ -58,19 +58,73 @@
           padding: 20px;
           border-radius: 8px;
           border: 1px solid #00ffff;
-          min-width: 300px;
+          min-width: 320px;
+          box-shadow: 0 0 12px rgba(0, 255, 195, 0.4);
         "
       >
-        <h3>ยืนยันการซื้อ</h3>
-        <p class="price">
-          ราคา: <span>{{ game.price | currency : "THB" }}</span>
+        <h3 style="margin-top: 0">ยืนยันการซื้อ</h3>
+
+        <p class="price" style="margin-bottom: 8px">
+          ราคา: <span>{{ game.price | currency : 'THB' }}</span>
         </p>
 
-        <div class="popup-btns" style="margin-top: 15px; text-align: right">
-          <button (click)="closePopup()" style="margin-right: 10px">
+        <!-- ช่องกรอกโค้ดส่วนลด -->
+        <div style="margin-top: 10px">
+          <label
+            for="discount"
+            style="display: block; margin-bottom: 6px; font-weight: 500"
+          >
+            โค้ดส่วนลด:
+          </label>
+          <input
+            id="discount"
+            type="text"
+            placeholder="กรอกโค้ดส่วนลดที่นี่"
+            style="
+              width: 100%;
+              padding: 8px 10px;
+              border-radius: 6px;
+              border: 1px solid #00ffff;
+              background: #000;
+              color: #fff;
+              outline: none;
+            "
+          />
+        </div>
+
+        <div
+          class="popup-btns"
+          style="margin-top: 20px; text-align: right; display: flex; justify-content: flex-end"
+        >
+          <button
+            (click)="closePopup()"
+            style="
+              background: #444;
+              color: #fff;
+              border: none;
+              padding: 8px 14px;
+              border-radius: 5px;
+              cursor: pointer;
+              margin-right: 10px;
+            "
+          >
             Cancel
           </button>
-          <button (click)="confirmPurchase()">Confirm</button>
+
+          <button
+            (click)="confirmPurchase()"
+            style="
+              background: #00ffc3;
+              color: #000;
+              border: none;
+              padding: 8px 14px;
+              border-radius: 5px;
+              cursor: pointer;
+              font-weight: 600;
+            "
+          >
+            Confirm
+          </button>
         </div>
       </div>
     </div>
