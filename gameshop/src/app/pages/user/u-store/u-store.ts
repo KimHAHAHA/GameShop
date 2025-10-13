@@ -122,13 +122,37 @@ export class UStore {
     try {
       this.isLoading = true;
 
-      const res: any = await lastValueFrom(
+      // ✅ ถ้ามีโค้ดส่วนลด ตรวจสอบอีกครั้งก่อนชำระ
+      if (this.discountCode.trim()) {
+        try {
+          const res: any = await lastValueFrom(
+            this.http.post(`${this.apiUrl}/discount_codes/check`, {
+              code: this.discountCode.trim(),
+              user_id: user.uid, // ✅ ส่ง user_id ไปด้วย
+            })
+          );
+          this.discountPercent = Number(res.discount_percent);
+          const discountAmount = (this.totalPrice * this.discountPercent) / 100;
+          this.discountedPrice = this.totalPrice - discountAmount;
+        } catch (err: any) {
+          alert(err.error?.message || '❌ โค้ดไม่ถูกต้องหรือหมดอายุ');
+          return; // ❌ หยุดเลย ถ้าโค้ดใช้ไม่ได้
+        }
+      } else {
+        this.discountedPrice = this.totalPrice;
+      }
+
+      // ✅ เริ่มชำระเงิน
+      const res2: any = await lastValueFrom(
         this.http.post(`${this.apiUrl}/cart_items/checkout/${user.uid}`, {
           discount_code: this.discountCode.trim(),
         })
       );
 
-      alert(res.message || '✅ ซื้อเกมทั้งหมดสำเร็จ');
+      alert(
+        res2.message ||
+          `✅ ซื้อสำเร็จ! จ่ายทั้งหมด ${this.discountedPrice.toFixed(2)} บาท`
+      );
       this.showPopup = false;
       await this.loadCart();
     } catch (err: any) {
